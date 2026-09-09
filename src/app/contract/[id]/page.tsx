@@ -132,10 +132,10 @@ export default async function ContractPage({
             {analyzing
               ? "Folyamatban"
               : provider === "claude"
-              ? "AI elemzés"
+              ? "Elemzés"
               : provider === "error"
               ? "Sikertelen"
-              : "Demó (AI nélkül)"}
+              : "Demó"}
           </span>
         </div>
       </div>
@@ -154,7 +154,7 @@ export default async function ContractPage({
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800">
           <div className="min-w-0 flex-1">
             <strong>Az elemzés nem sikerült.</strong>{" "}
-            {contract.error || "Az AI nem tudta befejezni az elemzést. Próbálja újra."}
+            {contract.error || "Az elemzés nem tudott befejeződni. Próbálja újra."}
           </div>
           <RetryButton contractId={id} />
         </div>
@@ -164,7 +164,7 @@ export default async function ContractPage({
           <code className="font-mono">ANTHROPIC_API_KEY</code> beállítva, ezért ez csak egy egyszerű,
           angol nyelvű vizsgálat volt, amely <em>a legtöbb csapdát kihagyja, és nem tud magyar nyelvű
           szerződést elemezni</em>. Adja meg a kulcsát a <code className="font-mono">.env.local</code>{" "}
-          fájlban, és indítsa újra a valódi AI-elemzéshez.
+          fájlban, és indítsa újra a teljes elemzéshez.
         </div>
       ) : null}
 
@@ -303,7 +303,7 @@ export default async function ContractPage({
       )}
 
       <p className="mt-10 rounded-lg bg-slate-100 px-4 py-3 text-xs text-slate-500">
-        <strong>A SzerzŐr nem jogi tanácsadás.</strong> Ezek a jelzések AI által generált
+        <strong>A SzerzŐr nem jogi tanácsadás.</strong> Ezek a jelzések automatikus elemzésen alapuló
         kiindulópontok. Olvassa el a tényleges szerződést, és fontos döntésekhez kérjen ügyvédi
         segítséget.
       </p>

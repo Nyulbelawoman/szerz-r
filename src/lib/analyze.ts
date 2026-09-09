@@ -57,7 +57,8 @@ export async function runAnalysis(
   contractId: string,
   userId: string,
   text: string,
-  mode: string = "post_sign"
+  mode: string = "post_sign",
+  plan: string = "free"
 ) {
   const result = await analyzeWithClaude(text, mode);
 
@@ -98,7 +99,7 @@ export async function runAnalysis(
       source_text: d.sourceText || null,
       severity: d.severity,
     });
-    if (mode === "post_sign") {
+    if (mode === "post_sign" && plan === "pro") {
       await scheduleReminders(deadlineId, userId, actBy || d.date || null);
     }
   }

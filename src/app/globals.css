@@ -65,3 +65,17 @@
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
+
+@keyframes floatRotate {
+  0%,
+  100% {
+    transform: translateY(0) rotateY(-7deg) rotateX(2deg);
+  }
+  50% {
+    transform: translateY(-16px) rotateY(7deg) rotateX(-2deg);
+  }
+}
+
+.animate-float-rotate {
+  animation: floatRotate 8s ease-in-out infinite;
+}

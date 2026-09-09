@@ -28,11 +28,19 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "A szerződés szövege túl rövid az elemzéshez." }, { status: 400 });
   }
 
+  const plan = user.plan || "free";
+  if (plan !== "pro" && (await listContracts(user.id)).length >= 1) {
+    return NextResponse.json(
+      { error: "Az ingyenes csomag 1 szerződést engedélyez. Frissíts Pro-ra a korlátlan használathoz." },
+      { status: 402 }
+    );
+  }
+
   const contract = await createContract({ user_id: user.id, title, filename, raw_text: text, mode });
 
   // Szinkron elemzés – a kérés megvárja, így Vercel-en is biztosan lefut.
   try {
-    const summary = await runAnalysis(contract.id, user.id, text, mode);
+    const summary = await runAnalysis(contract.id, user.id, text, mode, plan);
     return NextResponse.json({ id: contract.id, ...summary });
   } catch (err) {
     console.error("[analyze] failed:", err);

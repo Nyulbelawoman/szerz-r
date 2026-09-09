@@ -23,8 +23,8 @@ export default async function UploadPage() {
           <strong>Demó mód.</strong> Nincs <code className="font-mono">ANTHROPIC_API_KEY</code>{" "}
           beállítva, ezért az elemzés csak egy korlátozott, angol nyelvű kulcsszavas vizsgálat, amely a
           legtöbb csapdát kihagyja, és nem tud magyar nyelvű szerződést elemezni. Adja meg a kulcsát a{" "}
-          <code className="font-mono">.env.local</code> fájlban, és indítsa újra a valódi
-          AI-elemzéshez.
+          <code className="font-mono">.env.local</code> fájlban, és indítsa újra a teljes
+          elemzéshez.
         </div>
       )}
 

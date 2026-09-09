@@ -6,8 +6,35 @@ import { getSessionUser } from "@/lib/auth";
 export const metadata: Metadata = {
   title: "SzerzŐr – Ne hagyja, hogy az apró betűk csapdába ejtsék",
   description:
-    "Töltse fel a szerződését, és a SzerzŐr feltárja a csapdákat, és emlékezteti minden határidő előtt.",
+    "Tegye be a szerződéseit, és a SzerzŐr kinyeri a határidőket, és időben emlékezteti.",
 };
+
+function Logo() {
+  return (
+    <span className="inline-flex h-9 w-9 items-center justify-center">
+      <svg viewBox="0 0 32 32" className="h-9 w-9 drop-shadow-sm">
+        <defs>
+          <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#D4AF37" />
+            <stop offset="1" stopColor="#8a6d1f" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M16 1.5 L28 6.5 V15 C28 23 22.5 28.5 16 30.5 C9.5 28.5 4 23 4 15 V6.5 Z"
+          fill="url(#logoGrad)"
+        />
+        <path
+          d="M10 15.5 L14 19.5 L22 11.5"
+          stroke="#0B1120"
+          strokeWidth="2.6"
+          fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
+  );
+}
 
 export default async function RootLayout({
   children,
@@ -22,11 +49,9 @@ export default async function RootLayout({
         <header className="sticky top-0 z-20 border-b border-slate-200/70 bg-white/80 backdrop-blur">
           <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
             <Link href="/" className="flex items-center gap-2.5">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-brand-500 text-sm font-bold text-white shadow-sm">
-                SZ
-              </span>
-              <span className="text-lg font-bold tracking-tight text-slate-900">
-                Szerz<span className="text-brand-600">Őr</span>
+              <Logo />
+              <span className="font-serif text-xl font-bold tracking-tight text-slate-900">
+                Szerz<span className="text-gold-500">Őr</span>
               </span>
             </Link>
 
@@ -80,16 +105,13 @@ export default async function RootLayout({
           <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2 md:grid-cols-4">
             <div className="sm:col-span-2">
               <div className="flex items-center gap-2.5">
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-brand-600 to-brand-500 text-xs font-bold text-white">
-                  SZ
-                </span>
-                <span className="font-bold text-slate-900">
-                  Szerz<span className="text-brand-600">Őr</span>
+                <Logo />
+                <span className="font-serif text-lg font-bold text-slate-900">
+                  Szerz<span className="text-gold-500">Őr</span>
                 </span>
               </div>
               <p className="mt-3 max-w-xs text-sm text-slate-500">
-                AI, amely elolvassa a szerződéseit, feltárja a csapdákat, és emlékezteti minden
-                határidő előtt.
+                A szerződéseid és a határidőid egy helyen — időben szólunk, mielőtt lecsúsznál.
               </p>
             </div>
             <div>
@@ -103,8 +125,8 @@ export default async function RootLayout({
             <div>
               <h4 className="text-sm font-semibold text-slate-900">Jogi</h4>
               <ul className="mt-3 space-y-2 text-sm text-slate-500">
-                <li><span className="cursor-default">Általános Szerződési Feltételek</span></li>
-                <li><span className="cursor-default">Adatvédelmi irányelvek</span></li>
+                <li><Link href="/aszf" className="hover:text-slate-800">Általános Szerződési Feltételek</Link></li>
+                <li><Link href="/adatvedelem" className="hover:text-slate-800">Adatvédelmi irányelvek</Link></li>
               </ul>
             </div>
           </div>

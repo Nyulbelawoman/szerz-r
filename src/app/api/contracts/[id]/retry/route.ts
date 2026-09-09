@@ -27,7 +27,7 @@ export async function POST(
   await clearContractError(id);
 
   try {
-    const summary = await runAnalysis(id, user.id, contract.raw_text, contract.mode);
+    const summary = await runAnalysis(id, user.id, contract.raw_text, contract.mode, user.plan || "free");
     return NextResponse.json({ id, ...summary });
   } catch (err) {
     console.error("[retry] failed:", err);

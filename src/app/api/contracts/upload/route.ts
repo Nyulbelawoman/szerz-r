@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireUser } from "@/lib/auth";
-import { createContract, setContractError } from "@/lib/db";
+import { createContract, listContracts, setContractError } from "@/lib/db";
 import { runAnalysis } from "@/lib/analyze";
 import { extractPdfText, extractTextFile } from "@/lib/parseDocument";
 
@@ -52,6 +52,14 @@ export async function POST(req: Request) {
   const title =
     (typeof titleField === "string" && titleField.trim()) || name.replace(/\.[^.]+$/, "");
   const mode = form.get("mode") === "pre_sign" ? "pre_sign" : "post_sign";
+  const plan = user.plan || "free";
+
+  if (plan !== "pro" && (await listContracts(user.id)).length >= 1) {
+    return NextResponse.json(
+      { error: "Az ingyenes csomag 1 szerződést engedélyez. Frissíts Pro-ra a korlátlan használathoz." },
+      { status: 402 }
+    );
+  }
 
   const contract = await createContract({
     user_id: user.id,
@@ -63,7 +71,7 @@ export async function POST(req: Request) {
 
   // Szinkron elemzés – a kérés megvárja, így Vercel-en is biztosan lefut.
   try {
-    const summary = await runAnalysis(contract.id, user.id, text, mode);
+    const summary = await runAnalysis(contract.id, user.id, text, mode, plan);
     return NextResponse.json({ id: contract.id, ...summary });
   } catch (err) {
     console.error("[analyze] failed:", err);

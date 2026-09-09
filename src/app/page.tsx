@@ -89,7 +89,7 @@ const testimonials = [
 
 const security = [
   { icon: "🔒", title: "Titkosítva", body: "Szállítás közben és tároláskor is titkosítva van minden szerződés." },
-  { icon: "🤖", title: "Az AI nem tanul belőle", body: "Az elemzés nem használja az adataidat betanításra." },
+  { icon: "🤖", title: "Nem tanulunk az adataidból", body: "Az adataidat nem használjuk betanításra, és nem adjuk el." },
   { icon: "🗑️", title: "Egy gombbal törölhető", body: "Bármikor törölheted — és minden hozzá kapcsolódó adat is törlődik." },
   { icon: "🇪🇺", title: "GDPR-kompatibilis", body: "Az EU-s adatvédelmi szabályok szerint kezeljük az adataidat." },
 ];
