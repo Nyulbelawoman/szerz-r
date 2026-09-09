@@ -1,4 +1,5 @@
 import Link from "next/link";
+import HeroContract from "@/components/HeroContract";
 
 const features = [
   {
@@ -44,11 +45,7 @@ const tiers = [
     name: "Ingyenes",
     price: "0",
     tagline: "Próbáld ki",
-    features: [
-      "1 szerződés",
-      "Alap elemzés",
-      "Nincs emlékeztető",
-    ],
+    features: ["1 szerződés", "Alap elemzés", "Nincs emlékeztető"],
     cta: "Kezdd ingyen",
     highlight: false,
   },
@@ -69,55 +66,33 @@ const tiers = [
   },
 ];
 
-function HeroMock() {
-  return (
-    <div className="relative mx-auto w-full max-w-sm">
-      <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-br from-brand-100 via-white to-accent-50 opacity-70 blur-xl" />
-      <div className="card p-5">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-900">📅 Közelgő határidők</p>
-          <span className="rounded-full bg-brand-50 px-2.5 py-1 text-[11px] font-bold text-brand-700">
-            SzerzŐr
-          </span>
-        </div>
+const testimonials = [
+  {
+    quote:
+      "A SzerzŐr kiszúrta, hogy a bérleti szerződésem automatikusan megújul — és 60 nappal a határidő előtt szólt. Nélküle lecsúsztam volna.",
+    name: "K. Anna",
+    role: "bérlő",
+  },
+  {
+    quote:
+      "Három szerződésem van bent (konditerem, telefon, biztosítás), és végre minden határidőm egy helyen. Nem felejtek el lemondani.",
+    name: "Sz. Péter",
+    role: "szabadúszó",
+  },
+  {
+    quote:
+      "Aláírás előtt futtattam át egy vállalkozási szerződést — a SzerzŐr jelezte az egyoldalú áremelést, amit így ki tudtam tárgyalni.",
+    name: "N. Dávid",
+    role: "vállalkozó",
+  },
+];
 
-        <div className="mt-4 space-y-2.5">
-          <div className="flex items-center justify-between rounded-xl border border-red-200 bg-red-50 p-3">
-            <div>
-              <p className="text-xs font-semibold text-slate-800">🏋️ Konditerem</p>
-              <p className="text-[11px] text-slate-500">Felmondj márc. 3-ig (30 napos ablak)</p>
-            </div>
-            <span className="shrink-0 rounded-full bg-red-600 px-2 py-0.5 text-[11px] font-semibold text-white">
-              12 nap
-            </span>
-          </div>
-          <div className="flex items-center justify-between rounded-xl border border-amber-200 bg-amber-50 p-3">
-            <div>
-              <p className="text-xs font-semibold text-slate-800">🏠 Albérlet</p>
-              <p className="text-[11px] text-slate-500">Megújul máj. 2 — felmondj 60 nappal előtte</p>
-            </div>
-            <span className="shrink-0 rounded-full bg-amber-500 px-2 py-0.5 text-[11px] font-semibold text-white">
-              70 nap
-            </span>
-          </div>
-          <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 p-3">
-            <div>
-              <p className="text-xs font-semibold text-slate-800">📱 Telefon</p>
-              <p className="text-[11px] text-slate-500">Akciós ár vége jún. 15</p>
-            </div>
-            <span className="shrink-0 rounded-full bg-slate-500 px-2 py-0.5 text-[11px] font-semibold text-white">
-              114 nap
-            </span>
-          </div>
-        </div>
-
-        <div className="mt-4 flex items-center gap-2 rounded-xl bg-brand-50 px-3 py-2.5 text-xs font-medium text-brand-700">
-          <span>🔔</span> E-mailben is szólunk 30, 14, 7, 3 és 1 nappal előtte
-        </div>
-      </div>
-    </div>
-  );
-}
+const security = [
+  { icon: "🔒", title: "Titkosítva", body: "Szállítás közben és tároláskor is titkosítva van minden szerződés." },
+  { icon: "🤖", title: "Az AI nem tanul belőle", body: "Az elemzés nem használja az adataidat betanításra." },
+  { icon: "🗑️", title: "Egy gombbal törölhető", body: "Bármikor törölheted — és minden hozzá kapcsolódó adat is törlődik." },
+  { icon: "🇪🇺", title: "GDPR-kompatibilis", body: "Az EU-s adatvédelmi szabályok szerint kezeljük az adataidat." },
+];
 
 export default function LandingPage() {
   const checkoutUrl = process.env.GUMROAD_CHECKOUT_URL || "/signup";
@@ -125,36 +100,64 @@ export default function LandingPage() {
   return (
     <div className="overflow-hidden">
       {/* Hero */}
-      <section className="relative">
-        <div className="hero-grid absolute inset-0 -z-10" />
-        <div className="absolute inset-x-0 top-0 -z-10 h-[28rem] bg-gradient-to-b from-brand-50 via-white/60 to-transparent" />
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-20 lg:grid-cols-2">
+      <section className="relative overflow-hidden bg-ink-900 text-white">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(circle at 15% 20%, rgba(212,175,55,0.14), transparent 45%), radial-gradient(circle at 85% 0%, rgba(99,102,241,0.18), transparent 50%)",
+          }}
+        />
+        <div className="hero-grid absolute inset-0 opacity-[0.04]" />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 py-24 lg:grid-cols-2">
           <div>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-white px-3 py-1 text-xs font-semibold text-brand-700 shadow-sm">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-500" /> Szerződés-határidő figyelő
+            <span className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-gold-400/10 px-3 py-1 text-xs font-semibold text-gold-300">
+              <span className="h-1.5 w-1.5 rounded-full bg-gold-400" /> Szerződés-határidő figyelő
             </span>
-            <h1 className="mt-5 text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl">
-              Soha ne felejts el egyetlen <span className="text-gradient">határidőt</span> sem.
+            <h1 className="mt-6 font-serif text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
+              Soha ne felejts el egyetlen <span className="text-gold-gradient">határidőt</span> sem.
             </h1>
-            <p className="mt-4 max-w-xl text-lg leading-relaxed text-slate-600">
+            <p className="mt-4 max-w-xl text-lg leading-relaxed text-slate-300">
               Tedd ide a bérleti szerződésed, a konditermi tagságod, a telefonod, a biztosításod. A{" "}
-              <span className="font-semibold text-slate-800">SzerzŐr</span> kinyeri a rejtett
-              határidőket, kiszámolja a valódi teendő-dátumot, és időben emlékeztet — mielőtt
-              automatikusan levonnak vagy meghosszabbodik.
+              <span className="font-semibold text-white">SzerzŐr</span> kinyeri a rejtett határidőket,
+              kiszámolja a valódi teendő-dátumot, és időben emlékeztet — mielőtt automatikusan levonnak.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-3">
-              <Link href="/signup" className="btn-primary px-6 py-3 text-base">
+              <Link href="/signup" className="btn-gold">
                 Tedd be az első szerződésed
               </Link>
-              <Link href="/signin" className="btn-ghost px-6 py-3 text-base">
+              <Link
+                href="/signin"
+                className="inline-flex items-center justify-center rounded-xl border border-white/20 px-6 py-3 text-base font-semibold text-white transition hover:bg-white/10"
+              >
                 Bejelentkezés
               </Link>
             </div>
-            <p className="mt-4 text-xs text-slate-400">
-              Ingyenes első szerződés · Nincs szükség bankkártyára · Nem jogi tanácsadás
-            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-slate-400">
+              <span>🔒 Titkosítva</span>
+              <span>🇪🇺 GDPR</span>
+              <span>🤖 Nem tanulunk az adataidból</span>
+              <span>🗑️ Bármikor törölhető</span>
+            </div>
           </div>
-          <HeroMock />
+          <HeroContract />
+        </div>
+
+        {/* Stats bar */}
+        <div className="relative border-t border-white/10 bg-white/5">
+          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 px-4 py-6 text-center sm:grid-cols-4">
+            {[
+              ["100%", "privát"],
+              ["0", "eladott adat"],
+              ["60 nappal", "előtte szólunk"],
+              ["3 990 Ft", "Pró / hó"],
+            ].map(([v, l]) => (
+              <div key={l}>
+                <p className="font-serif text-2xl font-bold text-gold-300">{v}</p>
+                <p className="text-xs text-slate-400">{l}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -203,8 +206,8 @@ export default function LandingPage() {
               Minden, amire a határidőid figyeléséhez kell
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-slate-600">
-              Nem egy újabb naptár — a SzerzŐr kinyeri a határidőket a szerződésből, és megmondja,
-              miért fontosak.
+              Nem egy újabb naptár — a SzerzŐr kinyeri a határidőket a szerződésből, és megmondja, miért
+              fontosak.
             </p>
           </div>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -229,12 +232,49 @@ export default function LandingPage() {
           {steps.map((s) => (
             <div key={s.n} className="relative">
               <div className="card p-6">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 text-lg font-bold text-white">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-ink-900 text-lg font-bold text-gold-400">
                   {s.n}
                 </span>
                 <h3 className="mt-4 font-semibold text-slate-900">{s.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.body}</p>
               </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="border-y border-slate-200 bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-16">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900">Mit mondanak róla</h2>
+          </div>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {testimonials.map((t) => (
+              <div key={t.name} className="card p-6">
+                <p className="text-sm leading-relaxed text-slate-700">„{t.quote}”</p>
+                <p className="mt-4 text-sm font-semibold text-slate-900">{t.name}</p>
+                <p className="text-xs text-slate-500">{t.role}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Security */}
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-slate-900">Hogyan védjük az adataid</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-slate-600">
+            A szerződéseid a legérzékenyebb dokumentumaid közé tartoznak — ezért ezt komolyan vesszük.
+          </p>
+        </div>
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {security.map((s) => (
+            <div key={s.title} className="card p-6">
+              <div className="text-2xl">{s.icon}</div>
+              <h3 className="mt-3 font-semibold text-slate-900">{s.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.body}</p>
             </div>
           ))}
         </div>
@@ -253,10 +293,10 @@ export default function LandingPage() {
             {tiers.map((t) => (
               <div
                 key={t.name}
-                className={`card relative p-7 ${t.highlight ? "ring-2 ring-brand-600" : ""}`}
+                className={`card relative p-7 ${t.highlight ? "ring-2 ring-gold-400" : ""}`}
               >
                 {t.highlight && (
-                  <span className="absolute -top-3 left-6 rounded-full bg-brand-600 px-3 py-0.5 text-xs font-semibold text-white">
+                  <span className="absolute -top-3 left-6 rounded-full bg-ink-900 px-3 py-0.5 text-xs font-semibold text-gold-300">
                     Ajánlott
                   </span>
                 )}
@@ -269,7 +309,7 @@ export default function LandingPage() {
                 <ul className="mt-5 space-y-2.5 text-sm text-slate-600">
                   {t.features.map((f) => (
                     <li key={f} className="flex items-start gap-2">
-                      <span className="mt-0.5 text-brand-600">✓</span> {f}
+                      <span className="mt-0.5 text-gold-500">✓</span> {f}
                     </li>
                   ))}
                 </ul>
@@ -291,19 +331,24 @@ export default function LandingPage() {
       </section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-6xl px-4 py-16">
-        <div className="card overflow-hidden p-10 text-center sm:p-14">
-          <div className="mx-auto max-w-2xl">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900">
-              Ne hagyd, hogy lecsússzon egy határidő.
-            </h2>
-            <p className="mt-3 text-slate-600">
-              Tedd be az első szerződésed ingyen — a SzerzŐr elvégzi a többit.
-            </p>
-            <Link href="/signup" className="btn-primary mt-6 px-7 py-3 text-base">
-              Tedd be az első szerződésed
-            </Link>
-          </div>
+      <section className="relative overflow-hidden bg-ink-900 py-20 text-white">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(circle at 50% 100%, rgba(212,175,55,0.15), transparent 60%)",
+          }}
+        />
+        <div className="relative mx-auto max-w-3xl px-4 text-center">
+          <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl">
+            Ne hagyd, hogy lecsússzon egy határidő.
+          </h2>
+          <p className="mt-3 text-slate-300">
+            Tedd be az első szerződésed ingyen — a SzerzŐr elvégzi a többit.
+          </p>
+          <Link href="/signup" className="btn-gold mt-6 px-7 py-3 text-base">
+            Tedd be az első szerződésed
+          </Link>
         </div>
       </section>
     </div>
