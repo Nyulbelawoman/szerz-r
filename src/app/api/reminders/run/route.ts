@@ -1,10 +1,31 @@
 import { NextResponse } from "next/server";
-import { getDeadlineById, getDueRemindersAll, markReminderSent } from "@/lib/db";
+import { getDeadlineById, getDueRemindersAll, getUserById, markReminderSent } from "@/lib/db";
 
 export const runtime = "nodejs";
+export const maxDuration = 60;
 
-// Hit this endpoint daily (e.g. Vercel Cron, GitHub Actions, or a simple
-// scheduler) to "send" any reminders that have come due.
+async function sendEmail(to: string, subject: string, html: string): Promise<boolean> {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return false;
+  const from = process.env.MAIL_FROM || "SzerzŐr <onboarding@resend.dev>";
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { "content-type": "application/json", Authorization: `Bearer ${key}` },
+      body: JSON.stringify({ from, to, subject, html }),
+    });
+    if (!res.ok) {
+      console.error("[resend] hiba:", res.status, await res.text());
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error("[resend] kudarc:", err);
+    return false;
+  }
+}
+
+// Naponta hívd meg (Render Cron Job vagy cron-job.org), hogy kiküldje az esedékes emlékeztetőket.
 export async function POST(req: Request) {
   if (process.env.CRON_SECRET) {
     const auth = req.headers.get("authorization");
@@ -14,21 +35,33 @@ export async function POST(req: Request) {
   }
 
   const due = await getDueRemindersAll();
-  const hasEmail = Boolean(process.env.SMTP_HOST);
+  let sent = 0;
 
   for (const r of due) {
     const d = await getDeadlineById(r.deadline_id);
-    if (hasEmail) {
-      // Production: send email via SMTP / Resend / Postmark here.
+    const u = await getUserById(r.user_id);
+    const label = d?.label || "Határidő";
+    const actBy = d?.act_by_date || d?.date || "";
+
+    if (u?.email) {
+      const ok = await sendEmail(
+        u.email,
+        `⏰ Határidő közeleg: ${label}`,
+        `<div style="font-family:sans-serif;color:#1a1a1a;line-height:1.6">
+          <h2 style="color:#0B1120">A SzerzŐr emlékezteti</h2>
+          <p>Közeleg egy határidő a szerződéseiben:</p>
+          <p style="font-size:18px;font-weight:bold;color:#B08A1E">${label}</p>
+          <p>Teendő eddig: <strong>${actBy || "hamarosan"}</strong></p>
+          <p style="color:#666">Ne felejtse el időben elintézni, hogy ne csússzon le.</p>
+          <hr style="border:none;border-top:1px solid #eee;margin:16px 0">
+          <p style="color:#999;font-size:12px">A SzerzŐr segédlet, nem jogi tanácsadás.</p>
+        </div>`
+      );
+      if (ok) sent++;
     }
-    console.log(
-      `[reminder] user=${r.user_id} deadline="${d?.label ?? r.deadline_id}" act-by="${d?.act_by_date ?? d?.date ?? "?"}" tier=${r.tier_days}d`
-    );
+
     await markReminderSent(r.id);
   }
 
-  return NextResponse.json({
-    processed: due.length,
-    deliveredVia: hasEmail ? "email" : "log",
-  });
+  return NextResponse.json({ processed: due.length, sent });
 }
