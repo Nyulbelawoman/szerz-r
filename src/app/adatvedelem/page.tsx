@@ -1,48 +1,122 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Adatvédelmi tájékoztató – SzerzŐr",
+  title: "Adatvédelmi irányelvek – SzerzŐr",
 };
 
 export default function AdatvedelemPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-12">
-      <h1 className="font-serif text-3xl font-bold text-slate-900">Adatvédelmi tájékoztató</h1>
-      <p className="mt-2 text-sm text-slate-500">Utolsó frissítés: 2026. január</p>
+      <h1 className="font-serif text-3xl font-bold text-slate-900">Adatvédelmi irányelvek</h1>
+      <p className="mt-2 text-sm text-slate-500">Hatályos: 2026. január 1-től</p>
 
-      <div className="mt-8 space-y-6 text-sm leading-relaxed text-slate-700">
+      <div className="mt-8 space-y-8 text-sm leading-relaxed text-slate-700">
         <section>
-          <h2 className="font-semibold text-slate-900">1. Milyen adatokat gyűjtünk</h2>
+          <h2 className="text-base font-semibold text-slate-900">1. Bevezetés és az adatkezelő</h2>
           <p className="mt-2">
-            A regisztrációhoz e-mail-címet és jelszót kérünk. A szolgáltatás használatához a
-            szerződések szövegét dolgozzuk fel.
+            A jelen tájékoztató a <strong>SzerzŐr</strong> webes szolgáltatás (a továbbiakban:
+            „Szolgáltatás”) adatkezelését írja le. Az adatkezelő a Szolgáltatás üzemeltetője.
+          </p>
+          <p className="mt-2">
+            <strong>Adatkezelő:</strong> [Név / egyéni vállalkozó] · E-mail:{" "}
+            <a href="mailto:adatvedelem@szerzor.hu" className="text-brand-600 hover:underline">
+              adatvedelem@szerzor.hu
+            </a>
           </p>
         </section>
+
         <section>
-          <h2 className="font-semibold text-slate-900">2. Hogyan használjuk az adatokat</h2>
+          <h2 className="text-base font-semibold text-slate-900">2. Milyen adatokat kezelünk</h2>
+          <ul className="mt-2 list-disc space-y-1 pl-5">
+            <li><strong>Fiók adatai:</strong> e-mail-cím, jelszó (titkosított hash formában), csomag típusa, regisztráció időpontja.</li>
+            <li><strong>Feltöltött tartalom:</strong> az Ön által feltöltött vagy beillesztett szerződések szövege, valamint az ezekből kinyert határidők és elemzési adatok.</li>
+            <li><strong>Használati adatok:</strong> technikai naplók (IP-cím, böngésző típusa, hozzáférési időpontok) a biztonság és a hibaelhárítás érdekében.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-base font-semibold text-slate-900">3. Az adatkezelés célja és jogalapja</h2>
+          <ul className="mt-2 list-disc space-y-1 pl-5">
+            <li>A Szolgáltatás nyújtása és a szerződés teljesítése — GDPR 6. cikk (1) bek. b) pont.</li>
+            <li>Biztonsági és csalásmegelőzési célok — GDPR 6. cikk (1) bek. f) pont (jogos érdek).</li>
+            <li>Marketing (hírlevél, ajánlatok) — kizárólag az Ön <strong>külön hozzájárulásával</strong> (GDPR 6. cikk (1) bek. a) pont).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-base font-semibold text-slate-900">4. Adatfeldolgozók (harmadik felek)</h2>
+          <p className="mt-2">A Szolgáltatás működéséhez az alábbi adatfeldolgozókat vesszük igénybe:</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5">
+            <li><strong>Supabase</strong> — adatbázis-tárolás (PostgreSQL).</li>
+            <li><strong>Anthropic</strong> — a szerződések elemzése; az adatokat nem használja betanításra.</li>
+            <li><strong>Render</strong> — tárhely (hoszting).</li>
+            <li><strong>Resend</strong> — tranzakciós e-mailek (emlékeztetők) küldése.</li>
+            <li><strong>Gumroad</strong> — fizetés kezelése.</li>
+          </ul>
+          <p className="mt-2">Az adatfeldolgozók szerződésben vállalják a GDPR szerinti adatkezelést.</p>
+        </section>
+
+        <section>
+          <h2 className="text-base font-semibold text-slate-900">5. Adatbiztonság</h2>
           <p className="mt-2">
-            Az adatokat kizárólag a szolgáltatás működtetéséhez használjuk: a szerződésekben szereplő
-            határidők kinyerésére és emlékeztetők küldésére.
+            A szerződéseket szállítás közben (TLS-titkosítás) és tároláskor is titkosítva kezeljük.
+            A jelszavakat kriptográfiai hash formában tároljuk. A szerződéseket nem adjuk el, és nem
+            osztjuk meg harmadik féllel.
           </p>
         </section>
+
         <section>
-          <h2 className="font-semibold text-slate-900">3. Titkosítás és védelem</h2>
+          <h2 className="text-base font-semibold text-slate-900">6. Tárolási időtartam</h2>
           <p className="mt-2">
-            A szerződéseket szállítás közben (TLS) és tároláskor is titkosítva kezeljük. Nem adunk el
-            és nem osztunk meg adatokat harmadik féllel.
+            Az adatokat a fiók fennállásáig tároljuk. A szerződéseket és a fiókot Ön bármikor
+            törölheti; ezt követően az adatokat töröljük. A számlázással kapcsolatos adatokat a
+            jogszabályi kötelezettségek (pl. számviteli előírások) szerinti ideig őrizzük meg.
           </p>
         </section>
+
         <section>
-          <h2 className="font-semibold text-slate-900">4. Törlés</h2>
+          <h2 className="text-base font-semibold text-slate-900">7. Az Ön jogai (GDPR)</h2>
+          <p className="mt-2">Ön jogosult:</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5">
+            <li>hozzáférést kérni az adataihoz (GDPR 15. cikk),</li>
+            <li>az adatok helyesbítését kérni (16. cikk),</li>
+            <li>az adatok törlését kérni („elfeledtetéshez való jog”, 17. cikk),</li>
+            <li>az adatkezelés korlátozását kérni (18. cikk),</li>
+            <li>az adatok hordozhatóságát kérni (20. cikk),</li>
+            <li>tiltakozni az adatkezelés ellen (21. cikk),</li>
+            <li>a megadott hozzájárulást bármikor visszavonni (7. cikk).</li>
+          </ul>
           <p className="mt-2">
-            Bármikor törölheti a szerződéseit és a fiókját. A törlés a hozzá kapcsolódó összes adatra
-            kiterjed.
+            Kérelmét az{" "}
+            <a href="mailto:adatvedelem@szerzor.hu" className="text-brand-600 hover:underline">
+              adatvedelem@szerzor.hu
+            </a>{" "}
+            címen jelezheti; a kérelemre 30 napon belül válaszolunk.
           </p>
         </section>
+
         <section>
-          <h2 className="font-semibold text-slate-900">5. Kapcsolat</h2>
+          <h2 className="text-base font-semibold text-slate-900">8. Nemzetközi adattovábbítás</h2>
           <p className="mt-2">
-            Adatvédelmi kérdésekkel írjon a következő címre: adatvedelem@szerzor.hu
+            Egyes adatfeldolgozók az EU-n kívül (pl. USA) is működhetnek. Az adattovábbítás az Európai
+            Bizottság által elfogadott megfelelőségi mechanizmusok (pl. szerződéses garanciák) alapján
+            történik.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-base font-semibold text-slate-900">9. Sütik (cookie-k)</h2>
+          <p className="mt-2">
+            A Szolgáltatás a bejelentkezés fenntartásához elengedhetetlen, funkcionális sütiket
+            használ. Harmadik féltől származó nyomkövető sütiket nem alkalmazunk a működéshez.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-base font-semibold text-slate-900">10. Panasz és jogorvoslat</h2>
+          <p className="mt-2">
+            Ha úgy érzi, hogy az adatkezelés jogsértő, panasszal fordulhat a Nemzeti Adatvédelmi és
+            Információszabadság Hatósághoz (NAIH; naih.hu), vagy bírósághoz fordulhat.
           </p>
         </section>
       </div>
