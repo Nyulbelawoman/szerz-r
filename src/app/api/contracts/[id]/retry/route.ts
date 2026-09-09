@@ -5,6 +5,7 @@ import { runAnalysis } from "@/lib/analyze";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 export async function POST(
   _req: Request,
@@ -25,10 +26,15 @@ export async function POST(
   await setContractStatus(id, "analyzing");
   await clearContractError(id);
 
-  void runAnalysis(id, user.id, contract.raw_text, contract.mode).catch((err) => {
+  try {
+    const summary = await runAnalysis(id, user.id, contract.raw_text, contract.mode);
+    return NextResponse.json({ id, ...summary });
+  } catch (err) {
     console.error("[retry] failed:", err);
-    void setContractError(id, err instanceof Error ? err.message : "Az elemzés nem sikerült.");
-  });
-
-  return NextResponse.json({ id, status: "analyzing" });
+    await setContractError(id, err instanceof Error ? err.message : "Az elemzés nem sikerült.");
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : "Az elemzés nem sikerült." },
+      { status: 502 }
+    );
+  }
 }

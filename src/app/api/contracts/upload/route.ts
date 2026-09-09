@@ -6,6 +6,7 @@ import { extractPdfText, extractTextFile } from "@/lib/parseDocument";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 const TEXT_EXTS = ["txt", "md", "text"];
 
@@ -60,12 +61,16 @@ export async function POST(req: Request) {
     mode,
   });
 
-  // Analyze in the background so the request returns immediately; the report
-  // page shows "Analyzing…" and polls until the contract status changes.
-  void runAnalysis(contract.id, user.id, text, mode).catch((err) => {
-    console.error("[analyze] background failed:", err);
-    setContractError(contract.id, err instanceof Error ? err.message : "Az elemzés nem sikerült.");
-  });
-
-  return NextResponse.json({ id: contract.id, status: "analyzing" });
+  // Szinkron elemzés – a kérés megvárja, így Vercel-en is biztosan lefut.
+  try {
+    const summary = await runAnalysis(contract.id, user.id, text, mode);
+    return NextResponse.json({ id: contract.id, ...summary });
+  } catch (err) {
+    console.error("[analyze] failed:", err);
+    await setContractError(contract.id, err instanceof Error ? err.message : "Az elemzés nem sikerült.");
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : "Az elemzés nem sikerült." },
+      { status: 502 }
+    );
+  }
 }
