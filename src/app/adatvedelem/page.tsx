@@ -18,9 +18,9 @@ export default function AdatvedelemPage() {
             „Szolgáltatás”) adatkezelését írja le. Az adatkezelő a Szolgáltatás üzemeltetője.
           </p>
           <p className="mt-2">
-            <strong>Adatkezelő:</strong> [Név / egyéni vállalkozó] · E-mail:{" "}
-            <a href="mailto:adatvedelem@szerzor.hu" className="text-brand-600 hover:underline">
-              adatvedelem@szerzor.hu
+            <strong>Adatkezelő:</strong> Milán · E-mail:{" "}
+            <a href="mailto:adatvedelem@szerzor.com" className="text-brand-600 hover:underline">
+              adatvedelem@szerzor.com
             </a>
           </p>
         </section>
@@ -88,8 +88,8 @@ export default function AdatvedelemPage() {
           </ul>
           <p className="mt-2">
             Kérelmét az{" "}
-            <a href="mailto:adatvedelem@szerzor.hu" className="text-brand-600 hover:underline">
-              adatvedelem@szerzor.hu
+            <a href="mailto:adatvedelem@szerzor.com" className="text-brand-600 hover:underline">
+              adatvedelem@szerzor.com
             </a>{" "}
             címen jelezheti; a kérelemre 30 napon belül válaszolunk.
           </p>

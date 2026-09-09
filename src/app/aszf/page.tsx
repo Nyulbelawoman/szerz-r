@@ -19,9 +19,9 @@ export default function AszfPage() {
             A Szolgáltatás tájékoztató jellegű segítség.
           </p>
           <p className="mt-2">
-            <strong>Szolgáltató:</strong> [Név / egyéni vállalkozó] · E-mail:{" "}
-            <a href="mailto:hello@szerzor.hu" className="text-brand-600 hover:underline">
-              hello@szerzor.hu
+            <strong>Szolgáltató:</strong> Milán · E-mail:{" "}
+            <a href="mailto:hello@szerzor.com" className="text-brand-600 hover:underline">
+              hello@szerzor.com
             </a>
           </p>
         </section>
@@ -124,8 +124,8 @@ export default function AszfPage() {
           <h2 className="text-base font-semibold text-slate-900">12. Kapcsolat</h2>
           <p className="mt-2">
             Kérdéseivel forduljon hozzánk:{" "}
-            <a href="mailto:hello@szerzor.hu" className="text-brand-600 hover:underline">
-              hello@szerzor.hu
+            <a href="mailto:hello@szerzor.com" className="text-brand-600 hover:underline">
+              hello@szerzor.com
             </a>
           </p>
         </section>
