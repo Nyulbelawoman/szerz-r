@@ -1,7 +1,7 @@
 import { AnalysisResult, Deadline, Flag, Severity } from "./types";
 import { randomUUID } from "node:crypto";
 
-const MODEL = process.env.CLAUDE_MODEL || "claude-sonnet-4-5-20250929";
+const MODEL = process.env.CLAUDE_MODEL || "claude-haiku-4-5-20251001";
 
 const SYSTEM_PROMPT = `You are the contract-analysis engine for "SzerzŐr", a consumer app that helps ordinary people understand contracts they already signed and avoid "traps" (unfair, risky, or buried clauses).
 
