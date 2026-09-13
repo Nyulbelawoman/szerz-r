@@ -43,8 +43,9 @@ export async function POST(req: Request) {
     const label = d?.label || "Határidő";
     const actBy = d?.act_by_date || d?.date || "";
 
+    let delivered = true;
     if (u?.email) {
-      const ok = await sendEmail(
+      delivered = await sendEmail(
         u.email,
         `⏰ Határidő közeleg: ${label}`,
         `<div style="font-family:sans-serif;color:#1a1a1a;line-height:1.6">
@@ -57,10 +58,13 @@ export async function POST(req: Request) {
           <p style="color:#999;font-size:12px">A SzerzŐr segédlet, nem jogi tanácsadás.</p>
         </div>`
       );
-      if (ok) sent++;
+      if (delivered) sent++;
     }
 
-    await markReminderSent(r.id);
+    // Csak akkor jelöljük elküldöttnek, ha tényleg kiment (vagy nincs email cím).
+    if (delivered) {
+      await markReminderSent(r.id);
+    }
   }
 
   return NextResponse.json({ processed: due.length, sent });
