@@ -7,7 +7,7 @@ export const maxDuration = 60;
 async function sendEmail(to: string, subject: string, html: string): Promise<boolean> {
   const key = process.env.RESEND_API_KEY;
   if (!key) return false;
-  const from = process.env.MAIL_FROM || "SzerzŐr <onboarding@resend.dev>";
+  const from = process.env.MAIL_FROM || "SzerzŐr <alerts@szerzor.com>";
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -25,8 +25,17 @@ async function sendEmail(to: string, subject: string, html: string): Promise<boo
   }
 }
 
-// Naponta hívd meg (Render Cron Job vagy cron-job.org), hogy kiküldje az esedékes emlékeztetőket.
+// Naponta hívd meg (cron-job.org), hogy kiküldje az esedékes emlékeztetőket.
+// GET-et is elfogadunk, mert a cron-job.org alapból GET-tel hív.
+export async function GET(req: Request) {
+  return runReminders(req);
+}
+
 export async function POST(req: Request) {
+  return runReminders(req);
+}
+
+async function runReminders(req: Request) {
   if (process.env.CRON_SECRET) {
     const auth = req.headers.get("authorization");
     if (auth !== `Bearer ${process.env.CRON_SECRET}`) {
