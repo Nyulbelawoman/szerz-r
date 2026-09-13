@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireUser } from "@/lib/auth";
-import { clearContractError, getContract, setContractError, setContractStatus } from "@/lib/db";
+import { clearContractAnalysis, clearContractError, getContract, setContractError, setContractStatus } from "@/lib/db";
 import { runAnalysis } from "@/lib/analyze";
 
 export const runtime = "nodejs";
@@ -25,6 +25,8 @@ export async function POST(
 
   await setContractStatus(id, "analyzing");
   await clearContractError(id);
+  // Töröljük a korábbi elemzés eredményét, hogy ne duplikálódjanak a jelzések/határidők/emlékeztetők.
+  await clearContractAnalysis(id);
 
   try {
     const summary = await runAnalysis(id, user.id, contract.raw_text, contract.mode, user.plan || "free");

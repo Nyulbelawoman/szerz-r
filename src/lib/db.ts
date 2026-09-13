@@ -269,6 +269,12 @@ export async function deleteContract(id: string, userId: string): Promise<boolea
   return true;
 }
 
+export async function clearContractAnalysis(id: string) {
+  await q("DELETE FROM reminders WHERE deadline_id IN (SELECT id FROM deadlines WHERE contract_id = $1)", [id]);
+  await q("DELETE FROM deadlines WHERE contract_id = $1", [id]);
+  await q("DELETE FROM flags WHERE contract_id = $1", [id]);
+}
+
 export async function listContracts(userId: string): Promise<ContractListRow[]> {
   return (await q(
     `SELECT c.id, c.title, c.filename, c.status, c.provider, c.mode, c.created_at,
