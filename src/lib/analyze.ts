@@ -1,5 +1,6 @@
 import {
   getContract,
+  getUserById,
   insertDeadline,
   insertFlag,
   insertReminder,
@@ -7,6 +8,7 @@ import {
   setContractResult,
 } from "./db";
 import { analyzeWithClaude } from "./claude";
+import { sendEmail } from "./email";
 import { Severity } from "./types";
 
 export const REMINDER_TIERS = [60, 30, 14, 7, 4, 2, 1];
@@ -87,6 +89,8 @@ export async function runAnalysis(
     i++;
   }
 
+  const nearDeadlines: { label: string; actBy: string; days: number }[] = [];
+
   for (const d of result.deadlines) {
     const actBy = computeActByDate(d.date, d.noticeDays);
     const deadlineId = await insertDeadline({
@@ -101,6 +105,47 @@ export async function runAnalysis(
     });
     if (mode === "post_sign" && plan === "pro") {
       await scheduleReminders(deadlineId, userId, actBy || d.date || null);
+      // Gyűjtsük össze a közeli (7 napon belüli) határidőket az azonnali figyelmeztetéshez.
+      const base = actBy || d.date || null;
+      if (base && !isNaN(new Date(base).getTime())) {
+        const days = daysUntil(base);
+        if (days >= 0 && days <= 7) {
+          nearDeadlines.push({ label: d.label, actBy: base, days });
+        }
+      }
+    }
+  }
+
+  // Azonnali figyelmeztetés: ha van 7 napon belüli határidő, küldjünk egy összefoglaló emailt.
+  if (nearDeadlines.length > 0) {
+    try {
+      const u = await getUserById(userId);
+      if (u?.email) {
+        nearDeadlines.sort((a, b) => a.days - b.days);
+        const rows = nearDeadlines
+          .map((d) => {
+            const when = new Date(d.actBy).toLocaleDateString("hu-HU", {
+              month: "long",
+              day: "numeric",
+            });
+            return `<li style="margin:8px 0"><strong>${d.label}</strong> — teendő eddig: <strong>${when}</strong> (${d.days} nap)</li>`;
+          })
+          .join("");
+        await sendEmail(
+          u.email,
+          "⏰ Közeli határidők a szerződésében",
+          `<div style="font-family:sans-serif;color:#1a1a1a;line-height:1.6">
+            <h2 style="color:#0B1120">A SzerzŐr figyelmezteti</h2>
+            <p>A feltöltött szerződésében ezek a határidők <strong>egy héten belül</strong> esedékesek:</p>
+            <ul style="padding-left:20px">${rows}</ul>
+            <p style="color:#666">A pontos napokon további emlékeztetőket is küldünk (60, 30, 14, 7, 4, 2, 1 nappal előtte).</p>
+            <hr style="border:none;border-top:1px solid #eee;margin:16px 0">
+            <p style="color:#999;font-size:12px">A SzerzŐr segédlet, nem jogi tanácsadás.</p>
+          </div>`
+        );
+      }
+    } catch (err) {
+      console.error("[near-deadline] figyelmeztetés hiba:", err);
     }
   }
 
