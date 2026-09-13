@@ -10,7 +10,7 @@ const features = [
   {
     icon: "⏰",
     title: "Automatikus emlékeztetők",
-    body: "E-mailben szólunk 90, 60, 30, 14, 7, 3 és 1 nappal előtte, hogy időben léphess, ne utólag.",
+    body: "E-mailben szólunk 60, 30, 14, 7, 4, 2 és 1 nappal előtte, hogy időben léphess, ne utólag.",
   },
   {
     icon: "🗂️",

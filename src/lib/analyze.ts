@@ -9,7 +9,7 @@ import {
 import { analyzeWithClaude } from "./claude";
 import { Severity } from "./types";
 
-export const REMINDER_TIERS = [90, 60, 30, 14, 7, 3, 1, 0];
+export const REMINDER_TIERS = [60, 30, 14, 7, 4, 2, 1];
 
 export function addDays(iso: string, days: number): string {
   const d = new Date(iso);
