@@ -200,6 +200,10 @@ export async function setUserPlanByEmail(email: string, plan: string) {
   await q("UPDATE users SET plan = $1 WHERE email = $2", [plan, email.toLowerCase()]);
 }
 
+export async function listUsers(): Promise<UserRow[]> {
+  return (await q("SELECT id, email, plan, created_at FROM users ORDER BY created_at DESC")) as UserRow[];
+}
+
 // ---- contracts ----
 
 export async function createContract(input: {
