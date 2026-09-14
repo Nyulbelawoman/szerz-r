@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/auth";
 import { listContracts, listUpcomingDeadlines } from "@/lib/db";
 import { daysUntil } from "@/lib/analyze";
+import CancelSubscriptionButton from "@/components/CancelSubscriptionButton";
 
 export const dynamic = "force-dynamic";
 
@@ -55,21 +56,11 @@ export default async function DashboardPage() {
           <div>
             <h2 className="text-lg font-semibold text-slate-900">💎 Pro előfizetés</h2>
             <p className="mt-0.5 text-sm text-slate-600">
-              Aktív — a határidő-emlékeztetők és a korlátlan elemzés be van kapcsolva.
+              Aktív — a határidő-emlékeztetők és a korlátlan elemzés be van kapcsolva. A havi díj
+              automatikusan levonásra kerül, amíg le nem mondod.
             </p>
           </div>
-          <a
-            href={
-              user.gumroad_subscription_id
-                ? `https://app.gumroad.com/subscriptions/${user.gumroad_subscription_id}/manage`
-                : "https://app.gumroad.com/library"
-            }
-            target="_blank"
-            rel="noopener"
-            className="btn-ghost"
-          >
-            Előfizetés kezelése / lemondás
-          </a>
+          <CancelSubscriptionButton />
         </section>
       )}
 

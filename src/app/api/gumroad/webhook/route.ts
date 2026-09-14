@@ -15,8 +15,9 @@ export async function POST(req: Request) {
     if (!form) return new Response("OK", { status: 200 });
 
     const sellerId = form.get("seller_id");
-    const email = form.get("email");
+    const email = form.get("email") || form.get("user_email");
     const subscriptionId = form.get("subscription_id");
+    const cancelled = form.get("cancelled");
     const product = form.get("product_name") || form.get("product_permalink") || "";
 
     // Optional: ignore pings that aren't from our Gumroad account.
@@ -25,11 +26,18 @@ export async function POST(req: Request) {
     }
 
     if (typeof email === "string" && email.includes("@")) {
-      await setUserPlanByEmail(email, "pro");
-      if (typeof subscriptionId === "string" && subscriptionId) {
-        await setUserSubscriptionId(email, subscriptionId);
+      // Lemondás: a Gumroad "cancelled=true" mezőt küld -> visszaállítjuk free-re.
+      if (cancelled === "true" || cancelled === "1") {
+        await setUserPlanByEmail(email, "free");
+        await setUserSubscriptionId(email, "");
+        console.log(`[gumroad] cancelled -> downgraded ${email} to free`);
+      } else {
+        await setUserPlanByEmail(email, "pro");
+        if (typeof subscriptionId === "string" && subscriptionId) {
+          await setUserSubscriptionId(email, subscriptionId);
+        }
+        console.log(`[gumroad] upgraded ${email} to pro (${product})`);
       }
-      console.log(`[gumroad] upgraded ${email} to pro (${product})`);
     }
     return new Response("OK", { status: 200 });
   } catch (err) {
