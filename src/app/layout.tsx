@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import "./globals.css";
 import { getSessionUser } from "@/lib/auth";
-
-const GA_ID = "G-PRHMS79LL3";
+import CookieConsent from "@/components/CookieConsent";
 
 export const metadata: Metadata = {
   title: "SzerzŐr – Ne hagyja, hogy az apró betűk csapdába ejtsék",
@@ -122,6 +120,7 @@ export default async function RootLayout({
               <ul className="mt-3 space-y-2 text-sm text-slate-500">
                 <li><Link href="/#features" className="hover:text-slate-800">Funkciók</Link></li>
                 <li><Link href="/#pricing" className="hover:text-slate-800">Árak</Link></li>
+                <li><Link href="/gyik" className="hover:text-slate-800">GYIK</Link></li>
                 <li><Link href="/signup" className="hover:text-slate-800">Kezdés</Link></li>
               </ul>
             </div>
@@ -130,6 +129,7 @@ export default async function RootLayout({
               <ul className="mt-3 space-y-2 text-sm text-slate-500">
                 <li><Link href="/aszf" className="hover:text-slate-800">Általános Szerződési Feltételek</Link></li>
                 <li><Link href="/adatvedelem" className="hover:text-slate-800">Adatvédelmi irányelvek</Link></li>
+                <li><Link href="/impresszum" className="hover:text-slate-800">Impresszum</Link></li>
               </ul>
             </div>
           </div>
@@ -144,18 +144,7 @@ export default async function RootLayout({
           </div>
         </footer>
 
-        <Script
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-        />
-        <Script id="gtag-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_ID}', { page_path: window.location.pathname });
-          `}
-        </Script>
+        <CookieConsent />
       </body>
     </html>
   );

@@ -62,7 +62,29 @@ export default function AszfPage() {
         </section>
 
         <section>
-          <h2 className="text-base font-semibold text-slate-900">6. A felhasználó kötelezettségei</h2>
+          <h2 className="text-base font-semibold text-slate-900">6. Elállási jog (14 nap)</h2>
+          <p className="mt-2">
+            A fogyasztónak minősülő felhasználót a megrendeléstől számított <strong>14 napon
+            belül</strong> indokolás nélküli elállási jog illeti meg.
+          </p>
+          <p className="mt-2">
+            Mivel a Pro szolgáltatás a megrendeléssel egyidejűleg <strong>azonnali hozzáférést</strong>{" "}
+            biztosít (digitális tartalom azonnali teljesítése), a vásárlással a felhasználó
+            kifejezetten hozzájárul a teljesítés azonnali megkezdéséhez, és tudomásul veszi, hogy
+            ezzel <strong>elveszíti az elállási jogát</strong> a már teljesített szolgáltatásra.
+          </p>
+          <p className="mt-2">
+            Amennyiben a felhasználó élni kíván elállási jogával, azt a{" "}
+            <a href="mailto:hello@szerzor.com" className="text-brand-600 hover:underline">
+              hello@szerzor.com
+            </a>{" "}
+            címre küldött egyértelmű nyilatkozattal teheti meg. A fenti feltételek szerint, a már
+            azonnal megkezdett és teljesített digitális szolgáltatás esetén az elállás kizárt.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-base font-semibold text-slate-900">7. A felhasználó kötelezettségei</h2>
           <p className="mt-2">A felhasználó vállalja, hogy:</p>
           <ul className="mt-2 list-disc space-y-1 pl-5">
             <li>kizárólag olyan dokumentumokat tölt fel, amelyek kezelésére jogosult,</li>
@@ -72,7 +94,7 @@ export default function AszfPage() {
         </section>
 
         <section>
-          <h2 className="text-base font-semibold text-slate-900">7. Felelősség és jogi nyilatkozat</h2>
+          <h2 className="text-base font-semibold text-slate-900">8. Felelősség és jogi nyilatkozat</h2>
           <p className="mt-2">
             A Szolgáltatás által megjelenített elemzések és emlékeztetők{" "}
             <strong>automatikus elemzésen alapuló tájékoztatások</strong>, és{" "}
@@ -88,7 +110,7 @@ export default function AszfPage() {
         </section>
 
         <section>
-          <h2 className="text-base font-semibold text-slate-900">8. Szellemi tulajdon</h2>
+          <h2 className="text-base font-semibold text-slate-900">9. Szellemi tulajdon</h2>
           <p className="mt-2">
             A Szolgáltatás szoftvere, arculata és tartalma a Szolgáltató szellemi tulajdona. A
             felhasználó által feltöltött dokumentumok a felhasználó tulajdonában maradnak.
@@ -96,7 +118,7 @@ export default function AszfPage() {
         </section>
 
         <section>
-          <h2 className="text-base font-semibold text-slate-900">9. Felfüggesztés és megszüntetés</h2>
+          <h2 className="text-base font-semibold text-slate-900">10. Felfüggesztés és megszüntetés</h2>
           <p className="mt-2">
             A Szolgáltató jogosult a fiók felfüggesztésére vagy megszüntetésére, ha a felhasználó a
             jelen feltételeket súlyosan vagy ismételten megszegi. A felhasználó a fiókját bármikor
@@ -105,7 +127,7 @@ export default function AszfPage() {
         </section>
 
         <section>
-          <h2 className="text-base font-semibold text-slate-900">10. A feltételek módosítása</h2>
+          <h2 className="text-base font-semibold text-slate-900">11. A feltételek módosítása</h2>
           <p className="mt-2">
             A Szolgáltató jogosult a jelen feltételeket egyoldalúan módosítani. A módosításokról a
             Szolgáltató a weboldalon, illetve e-mailben értesíti a felhasználókat.
@@ -113,7 +135,7 @@ export default function AszfPage() {
         </section>
 
         <section>
-          <h2 className="text-base font-semibold text-slate-900">11. Irányadó jog és vitarendezés</h2>
+          <h2 className="text-base font-semibold text-slate-900">12. Irányadó jog és vitarendezés</h2>
           <p className="mt-2">
             A jelen feltételekre a magyar jog az irányadó. A felek a vitákat elsősorban békés úton
             rendezik. Jogvita esetén a magyar bíróságok járnak el.
@@ -121,7 +143,7 @@ export default function AszfPage() {
         </section>
 
         <section>
-          <h2 className="text-base font-semibold text-slate-900">12. Kapcsolat</h2>
+          <h2 className="text-base font-semibold text-slate-900">13. Kapcsolat</h2>
           <p className="mt-2">
             Kérdéseivel forduljon hozzánk:{" "}
             <a href="mailto:hello@szerzor.com" className="text-brand-600 hover:underline">
