@@ -53,12 +53,31 @@ const MODE_GUIDANCE: Record<string, string> = {
 
 export async function analyzeWithClaude(
   text: string,
-  mode: string = "post_sign"
+  mode: string = "post_sign",
+  images?: { data: string; mediaType: string }[]
 ): Promise<AnalysisResult> {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) {
+    if (images && images.length > 0) {
+      return errorResult("A kép alapú elemzéshez API-kulcs szükséges.");
+    }
     return demoAnalysis(text);
   }
+
+  const hasImages = images && images.length > 0;
+  const userContent: unknown = hasImages
+    ? [
+        ...images!.map((img) => ({
+          type: "image",
+          source: { type: "base64", media_type: img.mediaType, data: img.data },
+        })),
+        {
+          type: "text",
+          text:
+            "Analyze the contract shown in the attached photos. Read all the text from every image (they may be multiple pages of the same contract), then return ONLY the JSON object described in the system prompt.",
+        },
+      ]
+    : `Analyze the following contract text and return ONLY the JSON object described in the system prompt.\n\n<contract>\n${text.slice(0, 80000)}\n</contract>`;
 
   try {
     const res = await fetch("https://api.anthropic.com/v1/messages", {
@@ -76,7 +95,7 @@ export async function analyzeWithClaude(
         messages: [
           {
             role: "user",
-            content: `Analyze the following contract text and return ONLY the JSON object described in the system prompt.\n\n<contract>\n${text.slice(0, 80000)}\n</contract>`,
+            content: userContent,
           },
         ],
       }),

@@ -6,9 +6,17 @@ import { extractPdfText, extractTextFile } from "@/lib/parseDocument";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-export const maxDuration = 60;
+export const maxDuration = 120;
 
 const TEXT_EXTS = ["txt", "md", "text"];
+const IMAGE_EXTS = ["jpg", "jpeg", "png", "webp"];
+const MAX_IMAGES = 20;
+
+function imageMediaType(ext: string): string {
+  if (ext === "png") return "image/png";
+  if (ext === "webp") return "image/webp";
+  return "image/jpeg";
+}
 
 export async function POST(req: Request) {
   const user = await requireUser();
@@ -17,40 +25,60 @@ export async function POST(req: Request) {
   const form = await req.formData().catch(() => null);
   if (!form) return NextResponse.json({ error: "Érvénytelen adat." }, { status: 400 });
 
-  const file = form.get("file");
   const titleField = form.get("title");
-  if (!file || typeof file === "string" || typeof (file as any).arrayBuffer !== "function") {
+  const files = form
+    .getAll("file")
+    .filter(
+      (f): f is File => typeof f !== "string" && typeof (f as unknown as { arrayBuffer?: unknown }).arrayBuffer === "function"
+    );
+
+  if (files.length === 0) {
     return NextResponse.json({ error: "Nincs megadva fájl." }, { status: 400 });
   }
 
-  const name = typeof (file as any).name === "string" ? (file as any).name : "contract";
-  const ext = name.split(".").pop()?.toLowerCase() ?? "";
-  const buffer = Buffer.from(await (file as any).arrayBuffer());
+  const images: { data: string; mediaType: string }[] = [];
+  let docText = "";
+  let firstName = "contract";
 
-  let text = "";
-  if (ext === "pdf") {
-    text = await extractPdfText(buffer);
-  } else if (TEXT_EXTS.includes(ext)) {
-    text = extractTextFile(buffer);
-  } else {
+  for (const file of files) {
+    const name = typeof (file as unknown as { name?: string }).name === "string" ? (file as unknown as { name: string }).name : "contract";
+    if (firstName === "contract") firstName = name;
+    const ext = name.split(".").pop()?.toLowerCase() ?? "";
+    const buffer = Buffer.from(await (file as unknown as { arrayBuffer(): Promise<ArrayBuffer> }).arrayBuffer());
+
+    if (IMAGE_EXTS.includes(ext)) {
+      images.push({ data: buffer.toString("base64"), mediaType: imageMediaType(ext) });
+    } else if (ext === "pdf") {
+      docText += (docText ? "\n\n" : "") + (await extractPdfText(buffer));
+    } else if (TEXT_EXTS.includes(ext)) {
+      docText += (docText ? "\n\n" : "") + extractTextFile(buffer);
+    } else {
+      return NextResponse.json(
+        { error: "Nem támogatott fájltípus. PDF, .txt vagy kép (JPG/PNG/WebP) tölthető fel." },
+        { status: 400 }
+      );
+    }
+  }
+
+  if (images.length > MAX_IMAGES) {
     return NextResponse.json(
-      { error: "Nem támogatott fájltípus. Kérjük, PDF vagy .txt fájlt töltsön fel." },
+      { error: `Legfeljebb ${MAX_IMAGES} képet tölthet fel egyszerre.` },
       { status: 400 }
     );
   }
 
-  if (!text) {
+  if (images.length === 0 && !docText) {
     return NextResponse.json(
       {
         error:
-          "Nem található kinyerhető szöveg. Ez a PDF valószínűleg beszkennelt kép – illessze be inkább a szöveget (az OCR hamarosan elérhető).",
+          "Nem található kinyerhető szöveg. Ez a PDF valószínűleg beszkennelt kép – töltsön fel fényképet, vagy illessze be a szöveget.",
       },
       { status: 422 }
     );
   }
 
   const title =
-    (typeof titleField === "string" && titleField.trim()) || name.replace(/\.[^.]+$/, "");
+    (typeof titleField === "string" && titleField.trim()) || firstName.replace(/\.[^.]+$/, "");
   const mode = form.get("mode") === "pre_sign" ? "pre_sign" : "post_sign";
   const plan = user.plan || "free";
 
@@ -61,17 +89,21 @@ export async function POST(req: Request) {
     );
   }
 
+  const rawText =
+    images.length > 0
+      ? `[Kép alapú szerződés – ${images.length} fénykép]${docText ? "\n\n" + docText : ""}`
+      : docText;
+
   const contract = await createContract({
     user_id: user.id,
     title,
-    filename: name,
-    raw_text: text,
+    filename: firstName,
+    raw_text: rawText,
     mode,
   });
 
-  // Szinkron elemzés – a kérés megvárja, így Vercel-en is biztosan lefut.
   try {
-    const summary = await runAnalysis(contract.id, user.id, text, mode, plan);
+    const summary = await runAnalysis(contract.id, user.id, docText, mode, plan, images);
     return NextResponse.json({ id: contract.id, ...summary });
   } catch (err) {
     console.error("[analyze] failed:", err);

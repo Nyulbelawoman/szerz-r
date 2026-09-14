@@ -25,28 +25,130 @@ Vitarendezés: A szerződésből eredő bármely vitát kötelező választottb�
 
 Közüzemi díjak: A Bérlő felelős az áram, gáz és internet díjáért.`;
 
+const MAX_IMAGES = 20;
+
+function readAsDataURL(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(r.result as string);
+    r.onerror = reject;
+    r.readAsDataURL(file);
+  });
+}
+
+function loadImage(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+// A fotókat kicsinyítjük + JPEG-re tömörítjük a gyors feltöltéshez.
+async function compressImage(file: File, index: number): Promise<{ blob: Blob; preview: string }> {
+  const dataUrl = await readAsDataURL(file);
+  const img = await loadImage(dataUrl);
+  const maxDim = 2000;
+  let w = img.naturalWidth || img.width;
+  let h = img.naturalHeight || img.height;
+  if (w > maxDim || h > maxDim) {
+    const scale = Math.min(maxDim / w, maxDim / h);
+    w = Math.round(w * scale);
+    h = Math.round(h * scale);
+  }
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("canvas");
+  ctx.drawImage(img, 0, 0, w, h);
+  const blob = await new Promise<Blob>((resolve, reject) => {
+    canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("toBlob"))), "image/jpeg", 0.85);
+  });
+  const preview = canvas.toDataURL("image/jpeg", 0.45);
+  return { blob, preview };
+}
+
 export default function UploadForm() {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [images, setImages] = useState<{ blob: Blob; preview: string }[]>([]);
   const [mode, setMode] = useState<"pre_sign" | "post_sign">("post_sign");
   const [loading, setLoading] = useState(false);
+  const [compressing, setCompressing] = useState(false);
   const [error, setError] = useState("");
 
   function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0];
     if (!f) return;
     setFile(f);
+    setImages([]);
     setText("");
     setError("");
     if (!title) setTitle(f.name.replace(/\.[^.]+$/, ""));
+  }
+
+  async function handleImages(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+    setFile(null);
+    setText("");
+    setError("");
+    setCompressing(true);
+    try {
+      const added: { blob: Blob; preview: string }[] = [];
+      for (let i = 0; i < files.length && images.length + added.length < MAX_IMAGES; i++) {
+        added.push(await compressImage(files[i], images.length + added.length));
+      }
+      setImages((prev) => [...prev, ...added]);
+      if (!title) setTitle(files[0].name.replace(/\.[^.]+$/, ""));
+      if (images.length + files.length > MAX_IMAGES) {
+        setError(`Legfeljebb ${MAX_IMAGES} képet tölthet fel.`);
+      }
+    } catch {
+      setError("Nem sikerült a képek feldolgozása. Próbálja újra.");
+    } finally {
+      setCompressing(false);
+    }
+  }
+
+  function removeImage(i: number) {
+    setImages((prev) => prev.filter((_, idx) => idx !== i));
   }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
 
+    // 1) Képek
+    if (images.length > 0) {
+      setLoading(true);
+      try {
+        const fd = new FormData();
+        images.forEach((img, i) => {
+          fd.append("file", img.blob, `foto-${i + 1}.jpg`);
+        });
+        fd.append("title", title.trim() || "Megnevezés nélküli szerződés");
+        fd.append("mode", mode);
+        const res = await fetch("/api/contracts/upload", { method: "POST", body: fd });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          setError(data.error || "A képek elemzése nem sikerült.");
+          setLoading(false);
+          return;
+        }
+        router.push(`/contract/${data.id}`);
+      } catch {
+        setError("Hálózati hiba – próbálja újra.");
+        setLoading(false);
+      }
+      return;
+    }
+
+    // 2) Fájl (PDF / .txt)
     if (file) {
       setLoading(true);
       try {
@@ -69,8 +171,9 @@ export default function UploadForm() {
       return;
     }
 
+    // 3) Beillesztett szöveg
     if (text.trim().length < 40) {
-      setError("Illessze be legalább néhány mondatot a szerződésből, vagy válasszon fájlt.");
+      setError("Illessze be legalább néhány mondatot a szerződésből, vagy válasszon fájlt/képet.");
       return;
     }
     setLoading(true);
@@ -151,6 +254,59 @@ export default function UploadForm() {
         />
       </div>
 
+      {/* Képfeltöltés */}
+      <div className="rounded-xl border-2 border-dashed border-slate-300 p-4">
+        <div className="mb-1.5 flex items-center justify-between">
+          <label className="block text-sm font-semibold text-slate-700">
+            📷 Fényképek feltöltése{" "}
+            <span className="font-normal text-slate-400">(max {MAX_IMAGES} db)</span>
+          </label>
+        </div>
+        <p className="text-xs text-slate-500">
+          Nincs PDF-je? Fotózza le a szerződés oldalait, és töltse fel ide — a szöveget a képekből
+          olvassuk ki.
+        </p>
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={handleImages}
+          className="mt-3 text-xs file:mr-2 file:cursor-pointer file:rounded-lg file:border-0 file:bg-brand-50 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-brand-700 hover:file:bg-brand-100"
+        />
+        {compressing && (
+          <p className="mt-2 text-xs text-slate-500">Képek tömörítése…</p>
+        )}
+        {images.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {images.map((img, i) => (
+              <div key={i} className="relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={img.preview}
+                  alt={`Fotó ${i + 1}`}
+                  className="h-20 w-20 rounded-lg border border-slate-200 object-cover"
+                />
+                <button
+                  type="button"
+                  onClick={() => removeImage(i)}
+                  className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-slate-800 text-[10px] font-bold text-white"
+                  aria-label="Kép eltávolítása"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+        {images.length > 0 && (
+          <p className="mt-2 text-xs font-medium text-slate-600">
+            {images.length} kép kiválasztva
+          </p>
+        )}
+      </div>
+
+      <div className="text-center text-xs text-slate-400">— vagy —</div>
+
       {/* Text */}
       <div>
         <div className="mb-1.5 flex items-center justify-between">
@@ -162,6 +318,7 @@ export default function UploadForm() {
             onClick={() => {
               setText(SAMPLE);
               setFile(null);
+              setImages([]);
               setTitle("Minta bérleti szerződés");
               setError("");
             }}
@@ -177,7 +334,10 @@ export default function UploadForm() {
           value={text}
           onChange={(e) => {
             setText(e.target.value);
-            if (e.target.value) setFile(null);
+            if (e.target.value) {
+              setFile(null);
+              setImages([]);
+            }
           }}
         />
         <div className="mt-2.5 flex flex-wrap items-center gap-2 text-xs text-slate-500">
@@ -205,8 +365,12 @@ export default function UploadForm() {
       {loading && (
         <div className="flex items-center justify-center gap-2 text-sm text-slate-500">
           <span className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-brand-600" />
-          {file ? "Szöveg kinyerése és elemzés" : "Kikötések és határidők elemzése"} – ez néhány
-          másodpercet vehet igénybe…
+          {images.length > 0
+            ? "A fényképek olvasása és elemzés"
+            : file
+            ? "Szöveg kinyerése és elemzés"
+            : "Kikötések és határidők elemzése"}{" "}
+          – ez néhány másodpercet vehet igénybe…
         </div>
       )}
 

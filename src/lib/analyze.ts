@@ -60,9 +60,10 @@ export async function runAnalysis(
   userId: string,
   text: string,
   mode: string = "post_sign",
-  plan: string = "free"
+  plan: string = "free",
+  images?: { data: string; mediaType: string }[]
 ) {
-  const result = await analyzeWithClaude(text, mode);
+  const result = await analyzeWithClaude(text, mode, images);
 
   // If the contract was deleted while the analysis was running, stop here
   // so we don't re-insert orphaned flags/deadlines/reminders.
