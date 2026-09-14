@@ -14,8 +14,8 @@ export default function ImpresszumPage() {
         <section>
           <h2 className="text-base font-semibold text-slate-900">Szolgáltató adatai</h2>
           <ul className="mt-2 list-disc space-y-1 pl-5">
-            <li><strong>Név:</strong> Milán [TELJES NÉV]</li>
-            <li><strong>Székhely / cím:</strong> [CÍM, IRÁNYÍTÓSZÁM, VÁROS]</li>
+            <li><strong>Név:</strong> Milán</li>
+            <li><strong>Székhely / cím:</strong> Pest vármegye</li>
             <li>
               <strong>E-mail:</strong>{" "}
               <a href="mailto:hello@szerzor.com" className="text-brand-600 hover:underline">
