@@ -119,6 +119,7 @@ export default async function RootLayout({
               <h4 className="text-sm font-semibold text-slate-900">Termék</h4>
               <ul className="mt-3 space-y-2 text-sm text-slate-500">
                 <li><Link href="/#features" className="hover:text-slate-800">Funkciók</Link></li>
+                <li><Link href="/vallalkozoknak" className="hover:text-slate-800">Vállalkozóknak</Link></li>
                 <li><Link href="/#pricing" className="hover:text-slate-800">Árak</Link></li>
                 <li><Link href="/gyik" className="hover:text-slate-800">GYIK</Link></li>
                 <li><Link href="/signup" className="hover:text-slate-800">Kezdés</Link></li>
