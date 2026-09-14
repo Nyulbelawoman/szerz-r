@@ -49,6 +49,30 @@ export default async function DashboardPage() {
         </div>
       </div>
 
+      {/* Előfizetés kezelése */}
+      {user.plan === "pro" && (
+        <section className="card mt-8 flex flex-wrap items-center justify-between gap-4 p-5">
+          <div>
+            <h2 className="text-lg font-semibold text-slate-900">💎 Pro előfizetés</h2>
+            <p className="mt-0.5 text-sm text-slate-600">
+              Aktív — a határidő-emlékeztetők és a korlátlan elemzés be van kapcsolva.
+            </p>
+          </div>
+          <a
+            href={
+              user.gumroad_subscription_id
+                ? `https://app.gumroad.com/subscriptions/${user.gumroad_subscription_id}/manage`
+                : "https://app.gumroad.com/library"
+            }
+            target="_blank"
+            rel="noopener"
+            className="btn-ghost"
+          >
+            Előfizetés kezelése / lemondás
+          </a>
+        </section>
+      )}
+
       {/* Határidő-naptár */}
       <section className="mt-8">
         <h2 className="text-lg font-semibold text-slate-900">📅 Közelgő határidők</h2>

@@ -7,6 +7,7 @@ export interface UserRow {
   password_hash: string;
   plan: string;
   created_at: string;
+  gumroad_subscription_id?: string | null;
 }
 
 export interface ContractRow {
@@ -111,6 +112,8 @@ async function ensureMigrated() {
       created_at TEXT NOT NULL
     );
 
+    ALTER TABLE users ADD COLUMN IF NOT EXISTS gumroad_subscription_id TEXT;
+
     CREATE TABLE IF NOT EXISTS contracts (
       id TEXT PRIMARY KEY,
       user_id TEXT NOT NULL,
@@ -198,6 +201,13 @@ export async function getUserById(id: string): Promise<UserRow | undefined> {
 
 export async function setUserPlanByEmail(email: string, plan: string) {
   await q("UPDATE users SET plan = $1 WHERE email = $2", [plan, email.toLowerCase()]);
+}
+
+export async function setUserSubscriptionId(email: string, subscriptionId: string) {
+  await q("UPDATE users SET gumroad_subscription_id = $1 WHERE email = $2", [
+    subscriptionId,
+    email.toLowerCase(),
+  ]);
 }
 
 export async function listUsers(): Promise<UserRow[]> {

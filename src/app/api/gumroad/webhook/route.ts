@@ -1,4 +1,4 @@
-import { setUserPlanByEmail } from "@/lib/db";
+import { setUserPlanByEmail, setUserSubscriptionId } from "@/lib/db";
 
 export const runtime = "nodejs";
 
@@ -16,6 +16,7 @@ export async function POST(req: Request) {
 
     const sellerId = form.get("seller_id");
     const email = form.get("email");
+    const subscriptionId = form.get("subscription_id");
     const product = form.get("product_name") || form.get("product_permalink") || "";
 
     // Optional: ignore pings that aren't from our Gumroad account.
@@ -25,6 +26,9 @@ export async function POST(req: Request) {
 
     if (typeof email === "string" && email.includes("@")) {
       await setUserPlanByEmail(email, "pro");
+      if (typeof subscriptionId === "string" && subscriptionId) {
+        await setUserSubscriptionId(email, subscriptionId);
+      }
       console.log(`[gumroad] upgraded ${email} to pro (${product})`);
     }
     return new Response("OK", { status: 200 });

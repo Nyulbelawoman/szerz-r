@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import "./globals.css";
 import { getSessionUser } from "@/lib/auth";
+
+const GA_ID = "G-PRHMS79LL3";
 
 export const metadata: Metadata = {
   title: "SzerzŐr – Ne hagyja, hogy az apró betűk csapdába ejtsék",
@@ -140,6 +143,19 @@ export default async function RootLayout({
             </div>
           </div>
         </footer>
+
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}', { page_path: window.location.pathname });
+          `}
+        </Script>
       </body>
     </html>
   );
