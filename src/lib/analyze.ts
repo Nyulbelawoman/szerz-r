@@ -11,7 +11,7 @@ import { analyzeWithClaude } from "./claude";
 import { sendEmail } from "./email";
 import { Severity } from "./types";
 
-export const REMINDER_TIERS = [60, 30, 14, 7, 4, 2, 1];
+export const REMINDER_TIERS = [90, 60, 30, 14, 7, 4, 2, 1];
 
 export function addDays(iso: string, days: number): string {
   const d = new Date(iso);
@@ -139,7 +139,7 @@ export async function runAnalysis(
             <h2 style="color:#0B1120">A SzerzŐr figyelmezteti</h2>
             <p>A feltöltött szerződésében ezek a határidők <strong>egy héten belül</strong> esedékesek:</p>
             <ul style="padding-left:20px">${rows}</ul>
-            <p style="color:#666">A pontos napokon további emlékeztetőket is küldünk (60, 30, 14, 7, 4, 2, 1 nappal előtte).</p>
+            <p style="color:#666">A pontos napokon további emlékeztetőket is küldünk (90, 60, 30, 14, 7, 4, 2, 1 nappal előtte).</p>
             <hr style="border:none;border-top:1px solid #eee;margin:16px 0">
             <p style="color:#999;font-size:12px">A SzerzŐr segédlet, nem jogi tanácsadás.</p>
           </div>`

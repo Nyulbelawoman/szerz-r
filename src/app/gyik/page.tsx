@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 const faqs = [
   {
     q: "Hogyan működik a SzerzŐr?",
-    a: "Feltölti vagy beilleszti a szerződését, és a SzerzŐr kinyeri belőle a határidőket (felmondás, megújítás, lejárat, fizetés stb.), majd e-mailben emlékezteti Önt a megfelelő időpontokban (60, 30, 14, 7, 4, 2, 1 nappal előtte).",
+    a: "Feltölti vagy beilleszti a szerződését, és a SzerzŐr kinyeri belőle a határidőket (felmondás, megújítás, lejárat, fizetés stb.), majd e-mailben emlékezteti Önt a megfelelő időpontokban (90, 60, 30, 14, 7, 4, 2, 1 nappal előtte).",
   },
   {
     q: "Mi a különbség az Ingyenes és a Pro csomag között?",

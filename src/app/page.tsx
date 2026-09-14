@@ -10,7 +10,7 @@ const features = [
   {
     icon: "⏰",
     title: "Automatikus emlékeztetők",
-    body: "E-mailben szólunk 60, 30, 14, 7, 4, 2 és 1 nappal előtte, hogy időben léphess, ne utólag.",
+    body: "E-mailben szólunk 90, 60, 30, 14, 7, 4, 2 és 1 nappal előtte, hogy időben léphess, ne utólag.",
   },
   {
     icon: "🗂️",
@@ -69,7 +69,7 @@ const tiers = [
 const testimonials = [
   {
     quote:
-      "A SzerzŐr kiszúrta, hogy a bérleti szerződésem automatikusan megújul — és 60 nappal a határidő előtt szólt. Nélküle lecsúsztam volna.",
+      "A SzerzŐr kiszúrta, hogy a bérleti szerződésem automatikusan megújul — és 90 nappal a határidő előtt szólt. Nélküle lecsúsztam volna.",
     name: "K. Anna",
     role: "bérlő",
   },
@@ -149,7 +149,7 @@ export default function LandingPage() {
             {[
               ["100%", "privát"],
               ["0", "eladott adat"],
-              ["60 nappal", "előtte szólunk"],
+              ["90 nappal", "előtte szólunk"],
               ["2 499 Ft", "Pró / hó"],
             ].map(([v, l]) => (
               <div key={l}>

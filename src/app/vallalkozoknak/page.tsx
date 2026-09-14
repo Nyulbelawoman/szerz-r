@@ -31,7 +31,7 @@ const pains = [
 const steps = [
   { icon: "📄", title: "Tedd be", body: "PDF, beillesztett szöveg vagy akár fénykép — mindegy." },
   { icon: "🔍", title: "Kinyerjük", body: "A határidőket, felmondási időket és csapdákat." },
-  { icon: "⏰", title: "Szólunk", body: "60, 30, 14, 7, 4, 2, 1 nappal a határidő előtt." },
+  { icon: "⏰", title: "Szólunk", body: "90, 60, 30, 14, 7, 4, 2, 1 nappal a határidő előtt." },
 ];
 
 const testimonials = [
