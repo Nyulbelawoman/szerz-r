@@ -51,7 +51,7 @@ const tiers = [
   },
   {
     name: "Pro",
-    price: "3 990 Ft",
+    price: "2 499 Ft",
     tagline: "Figyeljük minden határidőd",
     features: [
       "Korlátlan szerződés",
@@ -150,7 +150,7 @@ export default function LandingPage() {
               ["100%", "privát"],
               ["0", "eladott adat"],
               ["60 nappal", "előtte szólunk"],
-              ["3 990 Ft", "Pró / hó"],
+              ["2 499 Ft", "Pró / hó"],
             ].map(([v, l]) => (
               <div key={l}>
                 <p className="font-serif text-2xl font-bold text-gold-300">{v}</p>
