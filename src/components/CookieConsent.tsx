@@ -1,72 +1,71 @@
 "use client";
 
+import Script from "next/script";
 import { useEffect, useState } from "react";
 
 const GA_ID = "G-PRHMS79LL3";
 const CONSENT_KEY = "sz_cookie_consent";
 
-function loadAnalytics() {
-  if (document.getElementById("sz-gtag")) return;
-  const s = document.createElement("script");
-  s.id = "sz-gtag";
-  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-  s.async = true;
-  document.head.appendChild(s);
-
-  const w = window as unknown as { dataLayer?: unknown[]; gtag?: (...args: unknown[]) => void };
-  w.dataLayer = w.dataLayer || [];
-  w.gtag = function gtag(...args: unknown[]) {
-    (w.dataLayer as unknown[]).push(args);
-  };
-  w.gtag("js", new Date());
-  w.gtag("config", GA_ID, { page_path: window.location.pathname });
-}
-
 export default function CookieConsent() {
-  const [visible, setVisible] = useState(false);
+  // null = még nincs döntés (banner látható); accepted/declined = eltárolva
+  const [consent, setConsent] = useState<"accepted" | "declined" | null>(null);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem(CONSENT_KEY);
-    if (stored === "accepted") {
-      loadAnalytics();
-    } else if (!stored) {
-      setVisible(true);
+    let stored: string | null = null;
+    try {
+      stored = localStorage.getItem(CONSENT_KEY);
+    } catch {
+      stored = null;
     }
-    // "declined" esetén nem töltünk be analitikát.
+    if (stored === "accepted" || stored === "declined") {
+      setConsent(stored);
+    }
+    setReady(true);
   }, []);
 
-  function accept() {
-    localStorage.setItem(CONSENT_KEY, "accepted");
-    loadAnalytics();
-    setVisible(false);
+  function choose(value: "accepted" | "declined") {
+    try {
+      localStorage.setItem(CONSENT_KEY, value);
+    } catch {}
+    setConsent(value);
   }
-
-  function decline() {
-    localStorage.setItem(CONSENT_KEY, "declined");
-    setVisible(false);
-  }
-
-  if (!visible) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
-      <div className="mx-auto flex max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-slate-600">
-          🍪 A SzerzŐr a bejelentkezéshez szükséges (funkcionális) sütiket használ, valamint — az Ön
-          hozzájárulásával — anonim látogatási statisztikát (Google Analytics). Bővebben:{" "}
-          <a href="/adatvedelem" className="text-brand-600 underline">
-            Adatvédelmi irányelvek
-          </a>
-        </p>
-        <div className="flex shrink-0 gap-2">
-          <button onClick={decline} className="btn-ghost px-3 py-1.5 text-sm">
-            Csak a szükségeseket
-          </button>
-          <button onClick={accept} className="btn-primary px-3 py-1.5 text-sm">
-            Elfogadom
-          </button>
+    <>
+      {consent === "accepted" && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+            strategy="afterInteractive"
+          />
+          <Script id="sz-gtag-init" strategy="afterInteractive">
+            {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GA_ID}');`}
+          </Script>
+        </>
+      )}
+
+      {ready && consent === null && (
+        <div className="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+          <div className="mx-auto flex max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm text-slate-600">
+              🍪 A SzerzŐr a bejelentkezéshez szükséges (funkcionális) sütiket használ, valamint — az Ön
+              hozzájárulásával — anonim látogatási statisztikát (Google Analytics). Bővebben:{" "}
+              <a href="/adatvedelem" className="text-brand-600 underline">
+                Adatvédelmi irányelvek
+              </a>
+            </p>
+            <div className="flex shrink-0 gap-2">
+              <button onClick={() => choose("declined")} className="btn-ghost px-3 py-1.5 text-sm">
+                Csak a szükségeseket
+              </button>
+              <button onClick={() => choose("accepted")} className="btn-primary px-3 py-1.5 text-sm">
+                Elfogadom
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
