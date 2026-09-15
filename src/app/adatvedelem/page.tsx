@@ -53,6 +53,7 @@ export default function AdatvedelemPage() {
             <li><strong>Resend</strong> — tranzakciós e-mailek (emlékeztetők) küldése.</li>
             <li><strong>Gumroad</strong> — fizetés kezelése.</li>
             <li><strong>Google Analytics</strong> — anonim látogatási statisztika (kizárólag az Ön süti-hozzájárulása esetén).</li>
+            <li><strong>Meta (Facebook) Pixel</strong> — hirdetés-mérés és konverziókövetés (kizárólag az Ön süti-hozzájárulása esetén).</li>
           </ul>
           <p className="mt-2">Az adatfeldolgozók szerződésben vállalják a GDPR szerinti adatkezelést.</p>
         </section>
@@ -113,10 +114,10 @@ export default function AdatvedelemPage() {
           </p>
           <p className="mt-2">
             Ezen felül, <strong>kizárólag az Ön külön hozzájárulásával</strong>, anonim látogatási
-            statisztika céljából <strong>Google Analytics</strong> sütiket alkalmazunk. Ha nem
-            járul hozzá, a statisztikai sütik nem kerülnek elhelyezésre, és a Szolgáltatás
-            használata ettől függetlenül teljes körűen működik. A hozzájárulást a weboldalon
-            megjelenő süti-sávon bármikor kezelheti.
+            statisztika céljából <strong>Google Analytics</strong>, illetve hirdetés-mérés céljából{" "}
+            <strong>Meta (Facebook) Pixel</strong> sütiket alkalmazunk. Ha nem járul hozzá, ezek a
+            sütik nem kerülnek elhelyezésre, és a Szolgáltatás használata ettől függetlenül teljes
+            körűen működik. A hozzájárulást a weboldalon megjelenő süti-sávon bármikor kezelheti.
           </p>
         </section>
 

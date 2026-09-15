@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { trackPixel } from "@/lib/pixel";
 
 export default function AuthForm({ mode }: { mode: "signin" | "signup" }) {
   const router = useRouter();
@@ -27,6 +28,9 @@ export default function AuthForm({ mode }: { mode: "signin" | "signup" }) {
         setError(data.error || "Valami hiba történt.");
         setLoading(false);
         return;
+      }
+      if (isSignup) {
+        trackPixel("CompleteRegistration");
       }
       router.push("/dashboard");
       router.refresh();

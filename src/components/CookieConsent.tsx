@@ -2,9 +2,13 @@
 
 import Script from "next/script";
 import { useEffect, useState } from "react";
+import { trackPixel } from "@/lib/pixel";
 
 const GA_ID = "G-PRHMS79LL3";
+const PIXEL_ID = "1734974754459673";
 const CONSENT_KEY = "sz_cookie_consent";
+
+const META_PIXEL_SNIPPET = `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${PIXEL_ID}');fbq('track','PageView');`;
 
 export default function CookieConsent() {
   // null = még nincs döntés (banner látható); accepted/declined = eltárolva
@@ -22,6 +26,19 @@ export default function CookieConsent() {
       setConsent(stored);
     }
     setReady(true);
+  }, []);
+
+  // Fizetési szándék követése: ha bármelyik Gumroad linkre kattintanak.
+  useEffect(() => {
+    function onDocClick(e: MouseEvent) {
+      const el = e.target as HTMLElement;
+      const a = el.closest?.("a") as HTMLAnchorElement | null;
+      if (a && a.href && a.href.includes("gumroad")) {
+        trackPixel("InitiateCheckout");
+      }
+    }
+    document.addEventListener("click", onDocClick);
+    return () => document.removeEventListener("click", onDocClick);
   }, []);
 
   function choose(value: "accepted" | "declined") {
@@ -42,6 +59,7 @@ export default function CookieConsent() {
           <Script id="sz-gtag-init" strategy="afterInteractive">
             {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GA_ID}');`}
           </Script>
+          <Script id="sz-fbq" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: META_PIXEL_SNIPPET }} />
         </>
       )}
 
@@ -50,7 +68,8 @@ export default function CookieConsent() {
           <div className="mx-auto flex max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-slate-600">
               🍪 A SzerzŐr a bejelentkezéshez szükséges (funkcionális) sütiket használ, valamint — az Ön
-              hozzájárulásával — anonim látogatási statisztikát (Google Analytics). Bővebben:{" "}
+              hozzájárulásával — anonim látogatási statisztikát (Google Analytics) és hirdetés-követést
+              (Meta Pixel). Bővebben:{" "}
               <a href="/adatvedelem" className="text-brand-600 underline">
                 Adatvédelmi irányelvek
               </a>
