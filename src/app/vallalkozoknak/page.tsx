@@ -72,7 +72,10 @@ export default function VallalkozoknakPage() {
             <Link href="/signup" className="btn-primary px-6 py-3 text-base">
               Tedd be az első szerződésed
             </Link>
-            <a href="#fajdalmak" className="btn-ghost px-6 py-3 text-base text-white">
+            <a
+              href="#fajdalmak"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 px-6 py-3 text-base font-semibold text-white transition hover:bg-white/10"
+            >
               Nézd meg, mit fogsz ki
             </a>
           </div>
