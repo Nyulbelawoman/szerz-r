@@ -32,6 +32,12 @@ export default function AdatvedelemPage() {
             <li><strong>Feltöltött tartalom:</strong> az Ön által feltöltött vagy beillesztett szerződések szövege, valamint az ezekből kinyert határidők és elemzési adatok.</li>
             <li><strong>Használati adatok:</strong> technikai naplók (IP-cím, böngésző típusa, hozzáférési időpontok) a biztonság és a hibaelhárítás érdekében.</li>
           </ul>
+          <p className="mt-2">
+            A feltöltött szerződések harmadik személyek (pl. bérbeadó, szerződő partner) adatait is
+            tartalmazhatják. Az ilyen dokumentumok feltöltésével Ön szavatolja, hogy arra jogosult;
+            ezeket az adatokat is a jelen tájékoztató szerint, a Szolgáltatás nyújtásához szükséges
+            mértékben kezeljük.
+          </p>
         </section>
 
         <section>
@@ -41,6 +47,12 @@ export default function AdatvedelemPage() {
             <li>Biztonsági és csalásmegelőzési célok — GDPR 6. cikk (1) bek. f) pont (jogos érdek).</li>
             <li>Marketing (hírlevél, ajánlatok) — kizárólag az Ön <strong>külön hozzájárulásával</strong> (GDPR 6. cikk (1) bek. a) pont).</li>
           </ul>
+          <p className="mt-2">
+            <strong>Átláthatóság:</strong> a szerződések elemzését <strong>mesterséges intelligencia
+            (AI)</strong> végzi. A szerződés szövegét kizárólag az elemzés céljából továbbítjuk az
+            AI-szolgáltatónak, aki <strong>nem használja fel betanításra</strong> és nem tárolja
+            tartósan. Az adatokat EU-n belül tároljuk.
+          </p>
         </section>
 
         <section>
@@ -74,6 +86,10 @@ export default function AdatvedelemPage() {
             törölheti; ezt követően az adatokat töröljük. A számlázással kapcsolatos adatokat a
             jogszabályi kötelezettségek (pl. számviteli előírások) szerinti ideig őrizzük meg.
           </p>
+          <p className="mt-2">
+            A technikai naplókat (IP-cím, böngésző) legfeljebb <strong>30 napig</strong> őrizzük,
+            kivéve, ha biztonsági incidens kivizsgálása hosszabb megőrzést indokol.
+          </p>
         </section>
 
         <section>
@@ -101,8 +117,12 @@ export default function AdatvedelemPage() {
           <h2 className="text-base font-semibold text-slate-900">8. Nemzetközi adattovábbítás</h2>
           <p className="mt-2">
             Egyes adatfeldolgozók az EU-n kívül (pl. USA) is működhetnek. Az adattovábbítás az Európai
-            Bizottság által elfogadott megfelelőségi mechanizmusok (pl. szerződéses garanciák) alapján
-            történik.
+            Bizottság által elfogadott megfelelőségi mechanizmusok alapján történik: az EU–US Data
+            Privacy Framework keretében, illetve ahol ez nem alkalmazható, az Európai Bizottság által
+            elfogadott általános szerződési feltételek (SCC) alapján.
+          </p>
+          <p className="mt-2">
+            A szerződések tárolását szolgáló <strong>Supabase-adatbázis EU-régióban</strong> üzemel.
           </p>
         </section>
 

@@ -34,21 +34,6 @@ const steps = [
   { icon: "⏰", title: "Szólunk", body: "90, 60, 30, 14, 7, 4, 2, 1 nappal a határidő előtt." },
 ];
 
-const testimonials = [
-  {
-    quote: "Hét SaaS-előfizetést mondtam le, mert a SzerzŐr szólt a megújítás előtt. Évi több százezer forint maradt bent.",
-    name: "Egyéni vállalkozó, kereskedelem",
-  },
-  {
-    quote: "Az irodabérletünk 90 napos felmondását pontosan jelezte. Nélküle még egy évig fizettük volna a drága helyiséget.",
-    name: "Ügyvezető, Kft.",
-  },
-  {
-    quote: "A beszállítónk csendben 15%-ot emelt volna. A SzerzŐr szólt, így újra tudtuk tárgyalni.",
-    name: "Tulajdonos, szolgáltató cég",
-  },
-];
-
 export default function VallalkozoknakPage() {
   const checkoutUrl = process.env.GUMROAD_CHECKOUT_URL || "/signup";
 
@@ -140,20 +125,15 @@ export default function VallalkozoknakPage() {
         </div>
       </section>
 
-      {/* Vélemények */}
+      {/* Bizalom */}
       <section className="border-t border-slate-200 bg-slate-50">
-        <div className="mx-auto max-w-6xl px-4 py-16">
-          <h2 className="text-center text-3xl font-bold tracking-tight text-slate-900">
-            Amit a vállalkozók mondanak
-          </h2>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {testimonials.map((t) => (
-              <div key={t.name} className="card p-7">
-                <p className="text-sm leading-relaxed text-slate-700">„{t.quote}"</p>
-                <p className="mt-4 text-sm font-semibold text-slate-900">{t.name}</p>
-              </div>
-            ))}
-          </div>
+        <div className="mx-auto max-w-3xl px-4 py-16 text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-slate-900">Őszintén rólunk</h2>
+          <p className="mx-auto mt-4 max-w-xl text-slate-600">
+            Fiatal szolgáltatás vagyunk, ezért nem mutatunk kitalált véleményeket. Amit garantálunk:
+            a szerződéseidet <strong>titkosítva tároljuk</strong>, a határidőket{" "}
+            <strong>90 nappal előtte</strong> jelezzük, és bármikor egy gombbal törölheted az egészet.
+          </p>
         </div>
       </section>
 

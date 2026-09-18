@@ -66,27 +66,6 @@ const tiers = [
   },
 ];
 
-const testimonials = [
-  {
-    quote:
-      "A SzerzŐr kiszúrta, hogy a bérleti szerződésem automatikusan megújul — és 90 nappal a határidő előtt szólt. Nélküle lecsúsztam volna.",
-    name: "K. Anna",
-    role: "bérlő",
-  },
-  {
-    quote:
-      "Három szerződésem van bent (konditerem, telefon, biztosítás), és végre minden határidőm egy helyen. Nem felejtek el lemondani.",
-    name: "Sz. Péter",
-    role: "szabadúszó",
-  },
-  {
-    quote:
-      "Aláírás előtt futtattam át egy vállalkozási szerződést — a SzerzŐr jelezte az egyoldalú áremelést, amit így ki tudtam tárgyalni.",
-    name: "N. Dávid",
-    role: "vállalkozó",
-  },
-];
-
 const security = [
   { icon: "🔒", title: "Titkosítva", body: "Szállítás közben és tároláskor is titkosítva van minden szerződés." },
   { icon: "🤖", title: "Nem tanulunk az adataidból", body: "Az adataidat nem használjuk betanításra, és nem adjuk el." },
@@ -243,21 +222,15 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Bizalom */}
       <section className="border-y border-slate-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-16">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900">Mit mondanak róla</h2>
-          </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {testimonials.map((t) => (
-              <div key={t.name} className="card p-6">
-                <p className="text-sm leading-relaxed text-slate-700">„{t.quote}”</p>
-                <p className="mt-4 text-sm font-semibold text-slate-900">{t.name}</p>
-                <p className="text-xs text-slate-500">{t.role}</p>
-              </div>
-            ))}
-          </div>
+        <div className="mx-auto max-w-3xl px-4 py-16 text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-slate-900">Őszintén rólunk</h2>
+          <p className="mx-auto mt-4 max-w-xl text-slate-600">
+            Fiatal szolgáltatás vagyunk, ezért nem mutatunk kitalált véleményeket. Amit garantálunk:
+            a szerződéseidet <strong>titkosítva tároljuk</strong>, a határidőket{" "}
+            <strong>90 nappal előtte</strong> jelezzük, és bármikor egy gombbal törölheted az egészet.
+          </p>
         </div>
       </section>
 

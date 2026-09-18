@@ -14,15 +14,19 @@ export default function AszfPage() {
         <section>
           <h2 className="text-base font-semibold text-slate-900">1. A szolgáltató és a szolgáltatás</h2>
           <p className="mt-2">
-            A <strong>SzerzŐr</strong> (a továbbiakban: „Szolgáltatás”) olyan webes alkalmazás, amely a
-            felhasználó által feltöltött szerződésekből határidőket nyer ki, és emlékeztetőket küld.
-            A Szolgáltatás tájékoztató jellegű segítség.
+            A <strong>SzerzŐr</strong> (szerzor.com) olyan webes alkalmazás, amely a felhasználó által
+            feltöltött szerződésekből határidőket nyer ki, és emlékeztetőket küld. A Szolgáltatás{" "}
+            <strong>tájékoztató jellegű segítség</strong>, nem minősül jogi tanácsadásnak.
           </p>
           <p className="mt-2">
             <strong>Szolgáltató:</strong> Milán · E-mail:{" "}
             <a href="mailto:hello@szerzor.com" className="text-brand-600 hover:underline">
               hello@szerzor.com
             </a>
+          </p>
+          <p className="mt-2 text-slate-500">
+            A szolgáltató teljes cégadatai az <strong>Impresszumban</strong> találhatók. Kérdésekre
+            jellemzően <strong>2 munkanapon belül</strong> válaszolunk.
           </p>
         </section>
 
@@ -38,49 +42,64 @@ export default function AszfPage() {
         <section>
           <h2 className="text-base font-semibold text-slate-900">3. Csomagok (Ingyenes és Pro)</h2>
           <ul className="mt-2 list-disc space-y-1 pl-5">
-            <li><strong>Ingyenes:</strong> 1 szerződés elemzése, emlékeztetők nélkül.</li>
-            <li><strong>Pro:</strong> korlátlan szerződés, határidő-kinyerés és e-mail emlékeztetők, PDF-feltöltés.</li>
+            <li><strong>Ingyenes:</strong> 1 szerződés elemzése, korlátozott funkciókkal.</li>
+            <li><strong>Pro:</strong> korlátlan szerződés, határidő-kinyerés és e-mail emlékeztetők, kép- és PDF-feltöltés.</li>
           </ul>
-          <p className="mt-2">A Pro csomag a jelen feltételek szerint előfizetéses szolgáltatás.</p>
+          <p className="mt-2">A Pro csomag havi, automatikusan megújuló előfizetés.</p>
         </section>
 
         <section>
-          <h2 className="text-base font-semibold text-slate-900">4. Díjak és fizetés</h2>
+          <h2 className="text-base font-semibold text-slate-900">4. Ár és fizetés</h2>
           <p className="mt-2">
-            A Pro csomag díja a weboldalon feltüntetett összeg. A fizetés a Gumroad fizetési
-            rendszerén keresztül történik. A fizetés lebonyolítására a Gumroad saját feltételei
+            A Pro csomag havi díja a weboldalon feltüntetett <strong>2 499 Ft/hó</strong>{" "}
+            <strong>(bruttó, áfát tartalmazó ár)</strong>. A díj a Gumroad fizetési rendszerén
+            keresztül, havonta automatikusan kerül felszámításra.
+          </p>
+          <p className="mt-2">
+            A Gumroad a vásárlásról bizonylatot állít ki; a tranzakcióra a Gumroad saját feltételei
             vonatkoznak.
+          </p>
+          <p className="mt-2 text-slate-500">
+            Megjegyzés: a díj a Gumroadon euróban kerül terhelésre a mindenkori árfolyamon — a
+            forintban feltüntetett ár tájékoztató jellegű.
           </p>
         </section>
 
         <section>
           <h2 className="text-base font-semibold text-slate-900">5. Lemondás</h2>
           <p className="mt-2">
-            Az előfizetés a Gumroad felületén bármikor lemondható. A lemondás a folyó fizetési
-            időszak végéig biztosítja a hozzáférést; visszamenőleges jóváírást nem tudunk adni.
+            Az előfizetés bármikor lemondható az irányítópulton található „Előfizetés lemondása”
+            gombbal (a Gumroadon keresztül). A lemondás a folyó fizetési időszak végén lép
+            hatályba: a már kifizetett időszakra a hozzáférés megmarad, újabb terhelés nem történik.
           </p>
         </section>
 
         <section>
           <h2 className="text-base font-semibold text-slate-900">6. Elállási jog (14 nap)</h2>
           <p className="mt-2">
-            A fogyasztónak minősülő felhasználót a megrendeléstől számított <strong>14 napon
-            belül</strong> indokolás nélküli elállási jog illeti meg.
+            A fogyasztónak minősülő felhasználót a szerződéskötéstől számított{" "}
+            <strong>14 napon belül</strong> indokolás nélküli elállási jog illeti meg. A Szolgáltatás
+            előfizetéses szolgáltatás, ezért az elállási jog a teljesítés megkezdése után is
+            megilleti Önt; ebben az esetben az elállásig igénybe vett szolgáltatással{" "}
+            <strong>arányos díjat</strong> számíthatunk fel.
           </p>
           <p className="mt-2">
-            Mivel a Pro szolgáltatás a megrendeléssel egyidejűleg <strong>azonnali hozzáférést</strong>{" "}
-            biztosít (digitális tartalom azonnali teljesítése), a vásárlással a felhasználó
-            kifejezetten hozzájárul a teljesítés azonnali megkezdéséhez, és tudomásul veszi, hogy
-            ezzel <strong>elveszíti az elállási jogát</strong> a már teljesített szolgáltatásra.
-          </p>
-          <p className="mt-2">
-            Amennyiben a felhasználó élni kíván elállási jogával, azt a{" "}
+            Az elállási szándékát egyértelmű nyilatkozattal (pl. az alábbi mintanyilatkozat
+            megküldésével) jelezheti a{" "}
             <a href="mailto:hello@szerzor.com" className="text-brand-600 hover:underline">
               hello@szerzor.com
             </a>{" "}
-            címre küldött egyértelmű nyilatkozattal teheti meg. A fenti feltételek szerint, a már
-            azonnal megkezdett és teljesített digitális szolgáltatás esetén az elállás kizárt.
+            e-mail címen. Az elállási nyilatkozat beérkezésétől számított <strong>14 napon belül</strong>{" "}
+            visszatérítjük a befizetett díjat — a fentiek szerinti arányos összeg levonásával.
           </p>
+          <div className="mt-3 rounded-lg border border-slate-200 bg-slate-50 p-4 text-xs leading-relaxed text-slate-600">
+            <p className="font-semibold text-slate-800">Elállási mintanyilatkozat</p>
+            <p className="mt-1">
+              „Alulírott … kijelentem, hogy gyakorolni kívánom elállási jogomat a SzerzŐr Pro
+              előfizetésre vonatkozó szerződésem tekintetében. A szerződéskötés időpontja: … .
+              Név: … . E-mail-cím: … . Dátum: … .”
+            </p>
+          </div>
         </section>
 
         <section>
@@ -94,23 +113,31 @@ export default function AszfPage() {
         </section>
 
         <section>
-          <h2 className="text-base font-semibold text-slate-900">8. Felelősség és jogi nyilatkozat</h2>
+          <h2 className="text-base font-semibold text-slate-900">8. A Szolgáltatás jellege</h2>
           <p className="mt-2">
-            A Szolgáltatás által megjelenített elemzések és emlékeztetők{" "}
-            <strong>automatikus elemzésen alapuló tájékoztatások</strong>, és{" "}
-            <strong>nem minősülnek jogi tanácsadásnak</strong>. A Szolgáltatás nem helyettesíti
-            szakképzett ügyvéd tanácsát. A felhasználó a szerződéseivel kapcsolatos döntéseket saját
-            felelősségére hozza meg.
-          </p>
-          <p className="mt-2">
-            A Szolgáltató a lehető legnagyobb gondossággal jár el, de a jogszabály által megengedett
-            legteljesebb mértékben nem vállal felelősséget az elemzés pontosságáért, az adatvesztésért
-            vagy az emlékeztetők elmaradásából eredő károkért.
+            A SzerzŐr <strong>tájékoztatást</strong> nyújt: megjelöli a szerződésben az átgondolandó
+            pontokat, a határidőket és a lehetséges pénzügyi hatásokat. Ez <strong>nem minősül jogi
+            tanácsadásnak</strong>, és nem helyettesíti ügyvéd tanácsát. A szerződéseivel kapcsolatos
+            döntéseket a felhasználó saját felelősségére hozza meg.
           </p>
         </section>
 
         <section>
-          <h2 className="text-base font-semibold text-slate-900">9. Szellemi tulajdon</h2>
+          <h2 className="text-base font-semibold text-slate-900">9. Felelősség</h2>
+          <p className="mt-2">
+            A Szolgáltatás a lehető legnagyobb gondossággal működik; a megbízhatóság érdekében
+            minden határidőről <strong>több emlékeztetőt</strong> küldünk (90, 60, 30, 14, 7, 4, 2, 1
+            nappal előtte).
+          </p>
+          <p className="mt-2">
+            A Szolgáltató felelőssége — a jogszabály által ki nem zárható esetek (szándékos károkozás,
+            testi épség sérelme) kivételével — <strong>az elmúlt 12 hónapban befizetett díjak
+            összegére</strong> korlátozódik.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-base font-semibold text-slate-900">10. Szellemi tulajdon</h2>
           <p className="mt-2">
             A Szolgáltatás szoftvere, arculata és tartalma a Szolgáltató szellemi tulajdona. A
             felhasználó által feltöltött dokumentumok a felhasználó tulajdonában maradnak.
@@ -118,7 +145,7 @@ export default function AszfPage() {
         </section>
 
         <section>
-          <h2 className="text-base font-semibold text-slate-900">10. Felfüggesztés és megszüntetés</h2>
+          <h2 className="text-base font-semibold text-slate-900">11. Felfüggesztés és megszüntetés</h2>
           <p className="mt-2">
             A Szolgáltató jogosult a fiók felfüggesztésére vagy megszüntetésére, ha a felhasználó a
             jelen feltételeket súlyosan vagy ismételten megszegi. A felhasználó a fiókját bármikor
@@ -127,15 +154,34 @@ export default function AszfPage() {
         </section>
 
         <section>
-          <h2 className="text-base font-semibold text-slate-900">11. A feltételek módosítása</h2>
+          <h2 className="text-base font-semibold text-slate-900">12. A feltételek módosítása</h2>
           <p className="mt-2">
-            A Szolgáltató jogosult a jelen feltételeket egyoldalúan módosítani. A módosításokról a
-            Szolgáltató a weboldalon, illetve e-mailben értesíti a felhasználókat.
+            A Szolgáltató a jelen feltételeket alapos okból módosíthatja. A módosításról a
+            felhasználókat <strong>legalább 15 nappal előre, e-mailben</strong> értesítjük. Ha a
+            felhasználó a módosítást nem fogadja el, az előfizetését{" "}
+            <strong>díjmentesen felmondhatja</strong> a hatálybalépés előtt.
           </p>
         </section>
 
         <section>
-          <h2 className="text-base font-semibold text-slate-900">12. Irányadó jog és vitarendezés</h2>
+          <h2 className="text-base font-semibold text-slate-900">13. Panaszkezelés</h2>
+          <p className="mt-2">
+            Panaszát a{" "}
+            <a href="mailto:hello@szerzor.com" className="text-brand-600 hover:underline">
+              hello@szerzor.com
+            </a>{" "}
+            címen jelezheti; <strong>30 napon belül</strong> érdemben válaszolunk.
+          </p>
+          <p className="mt-2">
+            Fogyasztói jogvita esetén a felhasználó a lakóhelye szerint illetékes{" "}
+            <strong>békéltető testülethez</strong> vagy a{" "}
+            <strong>fogyasztóvédelmi hatósághoz</strong> (kormányhivatal fogyasztóvédelmi osztálya)
+            fordulhat.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-base font-semibold text-slate-900">14. Irányadó jog és vitarendezés</h2>
           <p className="mt-2">
             A jelen feltételekre a magyar jog az irányadó. A felek a vitákat elsősorban békés úton
             rendezik. Jogvita esetén a magyar bíróságok járnak el.
@@ -143,7 +189,7 @@ export default function AszfPage() {
         </section>
 
         <section>
-          <h2 className="text-base font-semibold text-slate-900">13. Kapcsolat</h2>
+          <h2 className="text-base font-semibold text-slate-900">15. Kapcsolat</h2>
           <p className="mt-2">
             Kérdéseivel forduljon hozzánk:{" "}
             <a href="mailto:hello@szerzor.com" className="text-brand-600 hover:underline">
