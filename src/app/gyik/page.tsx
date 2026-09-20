@@ -11,12 +11,8 @@ const faqs = [
     a: "Feltölti vagy beilleszti a szerződését, és a SzerzŐr kinyeri belőle a határidőket (felmondás, megújítás, lejárat, fizetés stb.), majd e-mailben emlékezteti Önt a megfelelő időpontokban (90, 60, 30, 14, 7, 4, 2, 1 nappal előtte).",
   },
   {
-    q: "Mi a különbség az Ingyenes, a Pro és a Business csomag között?",
-    a: "Az Ingyenes csomaggal 1 szerződést elemezhet teljes körűen (kikötések, határidők, pénzügyi hatás) — kártya nélkül. A Pro (€6.90/hó) 2–14 szerződést és e-mail emlékeztetőket biztosít. A Business (€16.90/hó) 15+ szerződésre való, korlátlan használattal.",
-  },
-  {
-    q: "Van telefonos értesítés?",
-    a: "Igen, opcionálisan. Felhívjuk Önt a határidő előtt 14, 7 és 2 nappal. Díja: Pro csomagban +€2.90/hó, Businessben +€13.90/hó (15 szerződésre); további szerződésekhez +€2.90 / 3 szerződés.",
+    q: "Mi a különbség az Ingyenes és a Pro csomag között?",
+    a: "Az Ingyenes csomaggal 1 szerződést elemezhet, emlékeztetők nélkül. A Pro (2 499 Ft/hó) korlátlan szerződést, határidő-kinyerést és e-mail emlékeztetőket, valamint PDF-feltöltést biztosít.",
   },
   {
     q: "Biztonságban vannak a szerződéseim?",

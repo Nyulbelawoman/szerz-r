@@ -210,13 +210,6 @@ export async function setUserSubscriptionId(email: string, subscriptionId: strin
   ]);
 }
 
-// Hány szerződést enged az adott csomag (free=1, pro=14, business=korlátlan).
-export function maxContractsForPlan(plan: string): number {
-  if (plan === "business") return Number.POSITIVE_INFINITY;
-  if (plan === "pro") return 14;
-  return 1;
-}
-
 export async function listUsers(): Promise<UserRow[]> {
   return (await q("SELECT id, email, plan, created_at FROM users ORDER BY created_at DESC")) as UserRow[];
 }

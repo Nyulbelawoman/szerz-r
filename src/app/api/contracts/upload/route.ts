@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireUser } from "@/lib/auth";
-import { createContract, listContracts, maxContractsForPlan, setContractError } from "@/lib/db";
+import { createContract, listContracts, setContractError } from "@/lib/db";
 import { runAnalysis } from "@/lib/analyze";
 import { extractPdfText, extractTextFile } from "@/lib/parseDocument";
 
@@ -82,12 +82,11 @@ export async function POST(req: Request) {
   const mode = form.get("mode") === "pre_sign" ? "pre_sign" : "post_sign";
   const plan = user.plan || "free";
 
-  if ((await listContracts(user.id)).length >= maxContractsForPlan(plan)) {
-    const msg =
-      plan === "pro"
-        ? "A Pro csomag 14 szerződést engedélyez. Frissíts Business csomagra (€16.90/hó) 15+ szerződéshez."
-        : "Az ingyenes csomag 1 szerződést engedélyez. Frissíts Pro-ra (€6.90/hó) a további szerződésekhez.";
-    return NextResponse.json({ error: msg }, { status: 402 });
+  if (plan !== "pro" && (await listContracts(user.id)).length >= 1) {
+    return NextResponse.json(
+      { error: "Az ingyenes csomag 1 szerződést engedélyez. Frissíts Pro-ra a korlátlan használathoz." },
+      { status: 402 }
+    );
   }
 
   const rawText =

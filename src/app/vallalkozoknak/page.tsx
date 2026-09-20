@@ -111,37 +111,18 @@ export default function VallalkozoknakPage() {
 
       {/* Ár */}
       <section className="mx-auto max-w-4xl px-4 py-16 text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-slate-900">Egyszerű ár</h2>
-        <p className="mt-3 text-slate-600">
-          Az első szerződésed elemzése <strong>ingyen</strong> — utána 2 szerződéstől fizetsz.
-        </p>
-        <div className="mx-auto mt-10 grid max-w-3xl gap-6 sm:grid-cols-2">
-          <div className="card p-8">
-            <h3 className="font-semibold text-slate-900">Pro</h3>
-            <p className="mt-1 text-sm text-slate-500">2–14 szerződés + emlékeztetők</p>
-            <p className="mt-4 text-4xl font-bold text-slate-900">
-              €6.90<span className="text-base font-normal text-slate-400">/hó</span>
-            </p>
-            <Link href={checkoutUrl} target="_blank" rel="noopener" className="btn-primary mt-6 w-full">
-              Kezdés most
-            </Link>
-          </div>
-          <div className="card p-8 ring-2 ring-gold-400">
-            <h3 className="font-semibold text-slate-900">Business</h3>
-            <p className="mt-1 text-sm text-slate-500">15+ szerződés</p>
-            <p className="mt-4 text-4xl font-bold text-slate-900">
-              €16.90<span className="text-base font-normal text-slate-400">/hó</span>
-            </p>
-            <Link href={checkoutUrl} target="_blank" rel="noopener" className="btn-ghost mt-6 w-full">
-              Business csomag
-            </Link>
-          </div>
+        <h2 className="text-3xl font-bold tracking-tight text-slate-900">Egyetlen ár</h2>
+        <p className="mt-3 text-slate-600">Ennyiért nem érdemes határidőket fejben tartani.</p>
+        <div className="card mx-auto mt-10 max-w-sm p-8 ring-2 ring-gold-400">
+          <h3 className="font-semibold text-slate-900">Pro</h3>
+          <p className="mt-1 text-sm text-slate-500">Korlátlan szerződés + emlékeztetők</p>
+          <p className="mt-4 text-4xl font-bold text-slate-900">
+            2 499 Ft<span className="text-base font-normal text-slate-400">/hó</span>
+          </p>
+          <Link href={checkoutUrl} target="_blank" rel="noopener" className="btn-primary mt-6 w-full">
+            Kezdés most
+          </Link>
         </div>
-        <p className="mt-5 text-sm text-slate-500">
-          📞 <strong>Telefonos értesítés</strong> (hívunk 14, 7 és 2 nappal a határidő előtt):{" "}
-          Pro-nál <strong>+€2.90/hó</strong>, Businessnél <strong>+€13.90/hó</strong> (15 szerződésre;
-          továbbiakhoz +€2.90 / 3 szerződés).
-        </p>
       </section>
 
       {/* Bizalom */}

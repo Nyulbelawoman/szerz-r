@@ -44,41 +44,25 @@ const tiers = [
   {
     name: "Ingyenes",
     price: "0",
-    tagline: "Teljes elemzés, kártya nélkül",
-    features: [
-      "1 szerződés teljes elemzése",
-      "Kikötések + határidők + pénzügyi hatás",
-      "Nincs előfizetés, nincs kártya",
-    ],
+    tagline: "Próbáld ki",
+    features: ["1 szerződés", "Alap elemzés", "Nincs emlékeztető"],
     cta: "Kezdd ingyen",
     highlight: false,
   },
   {
     name: "Pro",
-    price: "€6.90",
-    tagline: "2–14 szerződés + emlékeztetők",
+    price: "2 499 Ft",
+    tagline: "Figyeljük minden határidőd",
     features: [
-      "2–14 szerződés",
-      "E-mail emlékeztetők (90, 60, 30, 14, 7, 4, 2, 1 nap)",
-      "PDF- és képfeltöltés",
-      "Pénzügyi hatás + tárgyalási levél",
-      "Telefonos értesítés: +€2.90/hó",
+      "Korlátlan szerződés",
+      "Határidő-kinyerés + emlékeztetők",
+      "E-mail értesítések",
+      "PDF-feltöltés",
+      "Pénzügyi hatás",
+      "Tárgyalási levél",
     ],
     cta: "Válaszd a Prót",
     highlight: true,
-  },
-  {
-    name: "Business",
-    price: "€16.90",
-    tagline: "15+ szerződés",
-    features: [
-      "Korlátlan szerződés (15+)",
-      "Minden Pro funkció",
-      "Telefonos értesítés 15 szerződésre: +€13.90/hó",
-      "További szerződések hívásra: +€2.90 / 3 db",
-    ],
-    cta: "Business csomag",
-    highlight: false,
   },
 ];
 
@@ -128,10 +112,6 @@ export default function LandingPage() {
                 Bejelentkezés
               </Link>
             </div>
-            <p className="mt-4 text-sm font-semibold text-gold-300">
-              🎁 Az első szerződésed teljes elemzése <span className="text-white">ingyen</span> —
-              kártya nélkül, azonnal.
-            </p>
             <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-slate-400">
               <span>🔒 Titkosítva</span>
               <span>🇪🇺 GDPR</span>
@@ -148,8 +128,8 @@ export default function LandingPage() {
             {[
               ["100%", "privát"],
               ["0", "eladott adat"],
-              ["1 ingyen", "szerződés elemzése"],
-              ["€6.90", "Pró / hó"],
+              ["90 nappal", "előtte szólunk"],
+              ["2 499 Ft", "Pró / hó"],
             ].map(([v, l]) => (
               <div key={l}>
                 <p className="font-serif text-2xl font-bold text-gold-300">{v}</p>
@@ -177,7 +157,7 @@ export default function LandingPage() {
               <i>mielőtt</i> elköteleződsz.
             </p>
             <ul className="mt-4 space-y-1.5 text-sm text-slate-600">
-              <li>✓ Tájékoztatás: mit gondolj át aláírás előtt</li>
+              <li>✓ Aláírási ajánlás (írd alá / módosítsd / ne írd alá)</li>
               <li>✓ Mit tárgyalj meg előre</li>
               <li>✓ Pénzügyi hatás</li>
             </ul>
