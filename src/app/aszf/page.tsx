@@ -40,28 +40,31 @@ export default function AszfPage() {
         </section>
 
         <section>
-          <h2 className="text-base font-semibold text-slate-900">3. Csomagok (Ingyenes és Pro)</h2>
+          <h2 className="text-base font-semibold text-slate-900">3. Csomagok (Ingyenes, Pro, Business)</h2>
           <ul className="mt-2 list-disc space-y-1 pl-5">
-            <li><strong>Ingyenes:</strong> 1 szerződés elemzése, korlátozott funkciókkal.</li>
-            <li><strong>Pro:</strong> korlátlan szerződés, határidő-kinyerés és e-mail emlékeztetők, kép- és PDF-feltöltés.</li>
+            <li><strong>Ingyenes:</strong> 1 szerződés teljes elemzése (kikötések, határidők, pénzügyi hatás).</li>
+            <li><strong>Pro:</strong> 2–14 szerződés, határidő-kinyerés és e-mail emlékeztetők, kép- és PDF-feltöltés.</li>
+            <li><strong>Business:</strong> 15+ szerződés, korlátlan használat, minden Pro funkció.</li>
           </ul>
-          <p className="mt-2">A Pro csomag havi, automatikusan megújuló előfizetés.</p>
+          <p className="mt-2">A Pro és a Business csomag havi, automatikusan megújuló előfizetés.</p>
         </section>
 
         <section>
           <h2 className="text-base font-semibold text-slate-900">4. Ár és fizetés</h2>
           <p className="mt-2">
-            A Pro csomag havi díja a weboldalon feltüntetett <strong>2 499 Ft/hó</strong>{" "}
-            <strong>(bruttó, áfát tartalmazó ár)</strong>. A díj a Gumroad fizetési rendszerén
+            A <strong>Pro csomag havi díja €6.90</strong>, a <strong>Business csomag havi díja
+            €16.90</strong> (bruttó, áfát tartalmazó ár). A díj a Gumroad fizetési rendszerén
             keresztül, havonta automatikusan kerül felszámításra.
+          </p>
+          <p className="mt-2">
+            <strong>Telefonos értesítés (opcionális):</strong> hívjuk Önt a határidő előtt{" "}
+            <strong>14, 7 és 2 nappal</strong>. Díja: Pro csomagban <strong>+€2.90/hó</strong>,
+            Business csomagban <strong>+€13.90/hó</strong> (15 szerződésre); további szerződések
+            hívásos értesítéséhez <strong>+€2.90 / 3 szerződés</strong>.
           </p>
           <p className="mt-2">
             A Gumroad a vásárlásról bizonylatot állít ki; a tranzakcióra a Gumroad saját feltételei
             vonatkoznak.
-          </p>
-          <p className="mt-2 text-slate-500">
-            Megjegyzés: a díj a Gumroadon euróban kerül terhelésre a mindenkori árfolyamon — a
-            forintban feltüntetett ár tájékoztató jellegű.
           </p>
         </section>
 

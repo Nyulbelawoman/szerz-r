@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireUser } from "@/lib/auth";
-import { createContract, listContracts, setContractError } from "@/lib/db";
+import { createContract, listContracts, maxContractsForPlan, setContractError } from "@/lib/db";
 import { runAnalysis } from "@/lib/analyze";
 
 export const runtime = "nodejs";
@@ -29,11 +29,12 @@ export async function POST(req: Request) {
   }
 
   const plan = user.plan || "free";
-  if (plan !== "pro" && (await listContracts(user.id)).length >= 1) {
-    return NextResponse.json(
-      { error: "Az ingyenes csomag 1 szerződést engedélyez. Frissíts Pro-ra a korlátlan használathoz." },
-      { status: 402 }
-    );
+  if ((await listContracts(user.id)).length >= maxContractsForPlan(plan)) {
+    const msg =
+      plan === "pro"
+        ? "A Pro csomag 14 szerződést engedélyez. Frissíts Business csomagra (€16.90/hó) 15+ szerződéshez."
+        : "Az ingyenes csomag 1 szerződést engedélyez. Frissíts Pro-ra (€6.90/hó) a további szerződésekhez.";
+    return NextResponse.json({ error: msg }, { status: 402 });
   }
 
   const contract = await createContract({ user_id: user.id, title, filename, raw_text: text, mode });
