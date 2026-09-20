@@ -42,7 +42,7 @@ export default function AszfPage() {
         <section>
           <h2 className="text-base font-semibold text-slate-900">3. Csomagok (Ingyenes és Pro)</h2>
           <ul className="mt-2 list-disc space-y-1 pl-5">
-            <li><strong>Ingyenes:</strong> 1 szerződés elemzése, korlátozott funkciókkal.</li>
+            <li><strong>Ingyenes:</strong> 1 szerződés teljes elemzése (kikötések, határidők, pénzügyi hatás) és e-mail emlékeztető.</li>
             <li><strong>Pro:</strong> korlátlan szerződés, határidő-kinyerés és e-mail emlékeztetők, kép- és PDF-feltöltés.</li>
           </ul>
           <p className="mt-2">A Pro csomag havi, automatikusan megújuló előfizetés.</p>

@@ -104,7 +104,7 @@ export async function runAnalysis(
       source_text: d.sourceText || null,
       severity: d.severity,
     });
-    if (mode === "post_sign" && plan === "pro") {
+    if (mode === "post_sign") {
       await scheduleReminders(deadlineId, userId, actBy || d.date || null);
       // Gyűjtsük össze a közeli (7 napon belüli) határidőket az azonnali figyelmeztetéshez.
       const base = actBy || d.date || null;

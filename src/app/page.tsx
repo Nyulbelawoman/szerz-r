@@ -44,8 +44,12 @@ const tiers = [
   {
     name: "Ingyenes",
     price: "0",
-    tagline: "Próbáld ki",
-    features: ["1 szerződés", "Alap elemzés", "Nincs emlékeztető"],
+    tagline: "Teljes elemzés + emlékeztető",
+    features: [
+      "1 szerződés teljes elemzése",
+      "E-mail emlékeztető a határidőkről",
+      "Nincs kártya, nincs előfizetés",
+    ],
     cta: "Kezdd ingyen",
     highlight: false,
   },
@@ -112,6 +116,11 @@ export default function LandingPage() {
                 Bejelentkezés
               </Link>
             </div>
+            <p className="mt-5 text-xl font-bold text-white sm:text-2xl">
+              🎁 Az első szerződésed <span className="text-gold-300">ingyen</span> — teljes
+              elemzéssel <span className="text-gold-300">és e-mail emlékeztetővel</span>. Kártya
+              nélkül.
+            </p>
             <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-slate-400">
               <span>🔒 Titkosítva</span>
               <span>🇪🇺 GDPR</span>
@@ -128,8 +137,8 @@ export default function LandingPage() {
             {[
               ["100%", "privát"],
               ["0", "eladott adat"],
+              ["1 ingyen", "szerződés + emlékeztető"],
               ["90 nappal", "előtte szólunk"],
-              ["2 499 Ft", "Pró / hó"],
             ].map(([v, l]) => (
               <div key={l}>
                 <p className="font-serif text-2xl font-bold text-gold-300">{v}</p>

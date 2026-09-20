@@ -12,7 +12,7 @@ const faqs = [
   },
   {
     q: "Mi a különbség az Ingyenes és a Pro csomag között?",
-    a: "Az Ingyenes csomaggal 1 szerződést elemezhet, emlékeztetők nélkül. A Pro (2 499 Ft/hó) korlátlan szerződést, határidő-kinyerést és e-mail emlékeztetőket, valamint PDF-feltöltést biztosít.",
+    a: "Az Ingyenes csomaggal 1 szerződést elemezhet teljes körűen (kikötések, határidők, pénzügyi hatás), és e-mail emlékeztetőt is kap hozzá — kártya nélkül. A Pro (2 499 Ft/hó) korlátlan szerződést, határidő-kinyerést, e-mail emlékeztetőket és PDF-feltöltést biztosít.",
   },
   {
     q: "Biztonságban vannak a szerződéseim?",

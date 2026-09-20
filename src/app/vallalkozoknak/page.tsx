@@ -64,6 +64,10 @@ export default function VallalkozoknakPage() {
               Nézd meg, mit fogsz ki
             </a>
           </div>
+          <p className="mt-6 text-lg font-bold text-white sm:text-xl">
+            🎁 Az első szerződésed <span className="text-gold-300">ingyen</span> — teljes elemzéssel{" "}
+            <span className="text-gold-300">és e-mail emlékeztetővel</span>, kártya nélkül.
+          </p>
         </div>
       </section>
 
