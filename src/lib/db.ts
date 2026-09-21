@@ -215,21 +215,18 @@ export async function listUsers(): Promise<UserRow[]> {
 }
 
 export async function listUsersWithContracts() {
-  const users = await q("SELECT id, email, plan, created_at FROM users ORDER BY created_at DESC");
-  const result = [];
-  for (const u of users) {
-    const contracts = await q(
-      "SELECT id, title, status, created_at FROM contracts WHERE user_id = $1 ORDER BY created_at DESC",
-      [u.id]
-    );
-    result.push({
-      email: u.email,
-      plan: u.plan,
-      created_at: u.created_at,
-      contracts: contracts.map((c) => ({ id: c.id, title: c.title, status: c.status, created_at: c.created_at })),
-    });
-  }
-  return result;
+  // Csak a szerződések SZÁMÁT adjuk vissza (a tartalom privát).
+  const users = await q(
+    `SELECT u.email, u.plan, u.created_at,
+       (SELECT COUNT(*) FROM contracts c WHERE c.user_id = u.id) AS contract_count
+     FROM users u ORDER BY u.created_at DESC`
+  );
+  return users.map((u) => ({
+    email: u.email,
+    plan: u.plan,
+    created_at: u.created_at,
+    contract_count: Number(u.contract_count),
+  }));
 }
 
 // ---- contracts ----
