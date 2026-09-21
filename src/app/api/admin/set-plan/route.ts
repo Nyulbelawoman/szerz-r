@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { listUsers, setUserPlanByEmail } from "@/lib/db";
+import { listUsersWithContracts, setUserPlanByEmail } from "@/lib/db";
 
 export const runtime = "nodejs";
 
@@ -17,12 +17,8 @@ export async function POST(req: Request) {
   }
 
   await setUserPlanByEmail(email, plan);
-  const users = await listUsers();
-  return NextResponse.json({
-    ok: true,
-    plan,
-    users: users.map((u) => ({ email: u.email, plan: u.plan, created_at: u.created_at })),
-  });
+  const users = await listUsersWithContracts();
+  return NextResponse.json({ ok: true, plan, users });
 }
 
 export async function GET(req: Request) {
@@ -30,6 +26,6 @@ export async function GET(req: Request) {
   if (!process.env.ADMIN_PASSWORD || auth !== process.env.ADMIN_PASSWORD) {
     return NextResponse.json({ error: "Hibás admin jelszó." }, { status: 401 });
   }
-  const users = await listUsers();
-  return NextResponse.json({ users: users.map((u) => ({ email: u.email, plan: u.plan, created_at: u.created_at })) });
+  const users = await listUsersWithContracts();
+  return NextResponse.json({ users });
 }

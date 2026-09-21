@@ -214,6 +214,24 @@ export async function listUsers(): Promise<UserRow[]> {
   return (await q("SELECT id, email, plan, created_at FROM users ORDER BY created_at DESC")) as UserRow[];
 }
 
+export async function listUsersWithContracts() {
+  const users = await q("SELECT id, email, plan, created_at FROM users ORDER BY created_at DESC");
+  const result = [];
+  for (const u of users) {
+    const contracts = await q(
+      "SELECT id, title, status, created_at FROM contracts WHERE user_id = $1 ORDER BY created_at DESC",
+      [u.id]
+    );
+    result.push({
+      email: u.email,
+      plan: u.plan,
+      created_at: u.created_at,
+      contracts: contracts.map((c) => ({ id: c.id, title: c.title, status: c.status, created_at: c.created_at })),
+    });
+  }
+  return result;
+}
+
 // ---- contracts ----
 
 export async function createContract(input: {
