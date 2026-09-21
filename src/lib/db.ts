@@ -8,6 +8,7 @@ export interface UserRow {
   plan: string;
   created_at: string;
   gumroad_subscription_id?: string | null;
+  marketing_opt_in?: boolean;
 }
 
 export interface ContractRow {
@@ -113,6 +114,7 @@ async function ensureMigrated() {
     );
 
     ALTER TABLE users ADD COLUMN IF NOT EXISTS gumroad_subscription_id TEXT;
+    ALTER TABLE users ADD COLUMN IF NOT EXISTS marketing_opt_in BOOLEAN NOT NULL DEFAULT false;
 
     CREATE TABLE IF NOT EXISTS contracts (
       id TEXT PRIMARY KEY,
@@ -180,11 +182,11 @@ async function q(sql: string, params: unknown[] = []): Promise<any[]> {
 
 // ---- users ----
 
-export async function createUser(email: string, passwordHash: string): Promise<UserRow> {
+export async function createUser(email: string, passwordHash: string, marketingOptIn = false): Promise<UserRow> {
   const id = randomUUID();
   await q(
-    "INSERT INTO users (id, email, password_hash, plan, created_at) VALUES ($1, $2, $3, 'free', $4)",
-    [id, email.toLowerCase(), passwordHash, new Date().toISOString()]
+    "INSERT INTO users (id, email, password_hash, plan, created_at, marketing_opt_in) VALUES ($1, $2, $3, 'free', $4, $5)",
+    [id, email.toLowerCase(), passwordHash, new Date().toISOString(), marketingOptIn]
   );
   return (await getUserById(id))!;
 }

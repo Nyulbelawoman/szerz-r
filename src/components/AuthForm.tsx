@@ -10,6 +10,7 @@ export default function AuthForm({ mode }: { mode: "signin" | "signup" }) {
   const isSignup = mode === "signup";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [marketingOptIn, setMarketingOptIn] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -21,7 +22,7 @@ export default function AuthForm({ mode }: { mode: "signin" | "signup" }) {
       const res = await fetch(`/api/auth/${mode}`, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, marketing_opt_in: marketingOptIn }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -77,6 +78,20 @@ export default function AuthForm({ mode }: { mode: "signin" | "signup" }) {
           <p className="mt-1 text-xs text-slate-400">Legalább 8 karakter.</p>
         )}
       </div>
+      {isSignup && (
+        <label className="flex items-start gap-2.5 text-sm text-slate-600">
+          <input
+            type="checkbox"
+            checked={marketingOptIn}
+            onChange={(e) => setMarketingOptIn(e.target.checked)}
+            className="mt-0.5 h-4 w-4 shrink-0 rounded border-slate-300"
+          />
+          <span>
+            Szeretnék e-mailt kapni <strong>ajánlatokról és hasznos tippekről</strong>. Bármikor
+            leiratkozhatok.
+          </span>
+        </label>
+      )}
       {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
       <button type="submit" className="btn-primary w-full" disabled={loading}>
         {loading ? "Kérem várjon…" : isSignup ? "Fiók létrehozása" : "Bejelentkezés"}

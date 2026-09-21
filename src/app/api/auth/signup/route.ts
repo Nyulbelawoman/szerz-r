@@ -9,6 +9,7 @@ export async function POST(req: Request) {
     const body = await req.json().catch(() => null);
     const email = typeof body?.email === "string" ? body.email.trim().toLowerCase() : "";
     const password = typeof body?.password === "string" ? body.password : "";
+    const marketingOptIn = body?.marketing_opt_in === true;
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ error: "Adjon meg érvényes e-mail-címet." }, { status: 400 });
@@ -20,7 +21,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Ez az e-mail-cím már regisztrálva van." }, { status: 409 });
     }
 
-    const user = await createUser(email, hashPassword(password));
+    const user = await createUser(email, hashPassword(password), marketingOptIn);
     await setSessionCookie(user.id);
     return NextResponse.json({ ok: true });
   } catch (err) {
